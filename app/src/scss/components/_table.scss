@@ -1,0 +1,38 @@
+.table th, .table td {
+    vertical-align: middle;
+    font-size: "Roboto regular";
+    font-size: $size-12;
+}
+.table-btn {
+    font-size: "Roboto regular";
+    font-size: $size-12;
+
+    &:hover, &:focus, &:active {
+        color: $white;
+    }
+}
+.table-sort-arrow {
+    font-size: $size-14;
+    color: $gray-200;
+    z-index: 10;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+
+    &.active {
+        color: $gray-base;
+        z-index: 5;
+    }
+
+    &.up {
+        top: -10px;
+    }
+    &.down {
+       bottom: -4px;
+    }
+}
+
+.options-column {
+    width: 160px;
+    text-align: center;
+}

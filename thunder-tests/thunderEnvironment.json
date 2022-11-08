@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "64e0885a-bc8d-4ebf-8895-dbe00068dce9",
+    "name": "Local",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-05-17T15:07:02.719Z",
+    "modified": "2022-10-01T16:14:43.392Z",
+    "data": [
+      {
+        "name": "baseUrl",
+        "value": "http://localhost:8000"
+      },
+      {
+        "name": "authToken",
+        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDY1OGFmMmVjMzlmZTJmMjU5ZjRhNmNkMGExZTg3NjhiY2JmMjVhNzdiZmJkZTcxMDE5Nzc2MmJkNWU4NmI2MTVkZDM5Mzc1MDk4YTVmMTkiLCJpYXQiOjE2NjQ2NDA4NjYuNTYyMTA5LCJuYmYiOjE2NjQ2NDA4NjYuNTYyMTEyLCJleHAiOjE2NjQ3MjcyNjYuNTU1ODI0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.FgTyUClxhKIOmGGfRGOcAj4pfvcaJJULnM06AhRodKFGddiTDFoBDueBBJrqN_OwIhoN9MoWNhkQcETtHPEXu231djh5zEUG6Jun9Xv0kD0U2x0nX1AHsOxFUyzcfCeNpBkNkRE_UvZEMfwlonzhVQJ5hwnWNC-kVnTBF6i8B84UeOe93Lpv-QrvjUKm5VCogSS_j7C-Zx0JhDtk_SRvdAk2bMWORgt86pFRtIB3GSWPaHYD79VyYurpKbkO7QlgBMJhjjUEwqAQnUyP7AwyZ1iz4_5oBRIDSvy-von20hNKm07arixuBOm_or9waNiqKV57_xmG2X9eFtNLS-VVcpWulbTgIJlMgjOCiWLNd7kTzRQ0f85uPnnIis_kYgqw6EAAUi-bo4OGRrdmMeKL-OeMzlVXcU5stOGPAydf1jgImVheIP1L8hfuyseo3RCUmB1LfLvgdCjOdXaayEpgaA-8ivVDntufrhePgGacX2dnYPI3dM5kB2eprucrqmY-8DHCwXa9gikI2m4SHxFtUhRqt71AvTt9La4fsTe6UqogWf3udLlYFM4gsYZzTLVZkz0Aduc2wZBJWff48LgWH4F0ind6WYeS8_YCTcVJ9LivtAnDCAur0bkyf2fwoS8u6ZxMY8duWyVXYYSGbijNE1QZ6bE7ctF8m1Q8zdZSCv8"
+      }
+    ]
+  }
+]

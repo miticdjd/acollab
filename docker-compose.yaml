@@ -1,0 +1,106 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:7.0-alpine
+    container_name: redis
+    networks:
+      - acollab
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: Root1234
+      MYSQL_USER: acollab
+      MYSQL_PASSWORD: secret
+    networks:
+      - acollab
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - 8090:80
+    environment:
+      PMA_HOST: mysql
+    networks:
+      - acollab
+
+  app:
+    image: docker.pkg.github.com/miticdjd/acollab/app:latest
+    container_name: app
+    restart: always
+    networks:
+      - acollab
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: mysql
+    volumes:
+      - ./app/src/:/app/src:delegated
+      - ./app/public/:/app/public:delegated
+
+  api:
+    image: docker.pkg.github.com/miticdjd/acollab/api:latest
+    container_name: api
+    restart: always
+    networks:
+      - acollab
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: acollab
+      DB_USERNAME: acollab
+      DB_PASSWORD: secret
+    volumes:
+      - ./api/app:/var/www/app:delegated
+      - ./api/tests:/var/www/tests:delegated
+      - ./api/storage:/var/www/storage:delegated
+      - ./api/database:/var/www/database:delegated
+      - ./api/resources:/var/www/resources:delegated
+      - ./api/public:/var/www/public:delegated
+      - ./api/routes:/var/www/routes:delegated
+      - ./api/config:/var/www/config:delegated
+
+  worker:
+    image: docker.pkg.github.com/miticdjd/acollab/api:latest
+    container_name: worker
+    restart: always
+    networks:
+      - acollab
+    environment:
+      CONTAINER_ROLE: worker
+      DB_HOST: mysql
+      DB_DATABASE: acollab
+      DB_USERNAME: acollab
+      DB_PASSWORD: secret
+    volumes:
+      - ./api/app:/var/www/app:delegated
+      - ./api/tests:/var/www/tests:delegated
+      - ./api/storage:/var/www/storage:delegated
+      - ./api/database:/var/www/database:delegated
+      - ./api/resources:/var/www/resources:delegated
+      - ./api/public:/var/www/public:delegated
+      - ./api/routes:/var/www/routes:delegated
+      - ./api/config:/var/www/config:delegated
+
+  web:
+    image: docker.pkg.github.com/miticdjd/acollab/web:latest
+    container_name: web
+    working_dir: /var/www
+    restart: always
+    volumes_from:
+      - api
+    ports:
+      - 8000:8000
+    networks:
+      - acollab
+
+networks:
+  acollab:
+
+volumes:
+  mysql_data: {}

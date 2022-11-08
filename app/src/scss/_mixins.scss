@@ -1,0 +1,16 @@
+@function pxToRem($pxSize) {
+    @return calc($pxSize / 16)+rem;
+}
+
+@mixin font-size() {
+
+    $font-size-list: 12 14 16 20 24;
+
+    @each $value in $font-size-list {
+        .font-size-#{$value} {
+            font-size: pxToRem($value);
+        }
+    }
+}
+
+@include font-size()
