@@ -7,9 +7,6 @@ import {
   CSidebarToggler,
 } from "@coreui/react";
 import { TheSidebarNav } from "./TheSidebarNav";
-import { Link } from "react-router-dom";
-
-import logoWhite from "../assets/icons/logo_white.svg";
 import { setConfig } from "../redux/config/configSlice";
 
 // sidebar nav config

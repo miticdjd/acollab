@@ -29,7 +29,7 @@ class LogoutController extends Controller
         $eventService->addForSpecificUser($user->id, $user->id, User::class, EventTypes::USER_LOGOUT, ['user_id' => $user->id]);
 
         return (new BasicResponse())
-            ->setMessage(__('label.logout.success'))
+            ->setMessage('Uspešno ste se izlogovali.')
             ->response();
     }
 }

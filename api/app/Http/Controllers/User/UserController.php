@@ -76,7 +76,7 @@ class UserController extends Controller
         $created = $userService->add($request->validated());
 
         return (new BasicResponse($created))
-            ->setMessage(__('label.user.created'))
+            ->setMessage('Korisnik je kreiran.')
             ->response();
     }
 
@@ -92,7 +92,7 @@ class UserController extends Controller
         $updated = $userService->update($user, $request->validated());
 
         return (new BasicResponse($updated->refresh()))
-            ->setMessage(__('label.user.updated'))
+            ->setMessage('Korisnik je promenjen.')
             ->response();
     }
 
@@ -108,7 +108,7 @@ class UserController extends Controller
         if ($userService->remove($user)) {
 
             return (new BasicResponse())
-                ->setMessage(__('label.user.deleted'))
+                ->setMessage('Korisnik je obrisan.')
                 ->response();
         }
 

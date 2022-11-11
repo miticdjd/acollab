@@ -9,8 +9,6 @@ use App\Services\User\User as UserService;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Services\User\Role;
-use Spatie\Permission\Models\Permission;
 
 class ProfileController extends Controller
 {
@@ -43,7 +41,7 @@ class ProfileController extends Controller
         $updated = $userService->update($user, $request->validated());
 
         return (new BasicResponse($updated))
-            ->setMessage(__('label.profile.updated'))
+            ->setMessage('Uspešno ste promenili svoj profil.')
             ->response();
     }
 }

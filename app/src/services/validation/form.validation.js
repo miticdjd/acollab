@@ -1,31 +1,30 @@
 import * as yup from 'yup';
-import i18next from '../../i18n';
 
 const emailValidation = {
     email: yup
-      .string(i18next.t('validation.must_be_string', { field: i18next.t('email') }))
-      .email(i18next.t('validation.enter_valid_email'))
-      .required(i18next.t('validation.field_required', { field: i18next.t('email') }))
+      .string("Molimo Vas da unesete validnu e-mail adresu.")
+      .email("Molimo Vas da unesete validnu e-mail adresu.")
+      .required("Molimo Vas da unesete validnu e-mail adresu.")
   };
 
 const passwordValidation = {
     password: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.password') }))
-        .min(6, i18next.t('validation.minimum_characters', { number: 6, field: i18next.t('label.password') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.password') }))
+        .string("Lozinka je obavezno polje.")
+        .min(6, "Lozinka mora da bude minimum 6 karaktera.")
+        .required("Lozinka je obavezno polje.")
 };
 
 const passwordConfirmValidation = {
     password_confirmation: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.confirm_password') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.confirm_password') }))
-        .oneOf([yup.ref('password'), null], i18next.t('validation.passwords_must_match'))
+        .string("Molimo da potvrdite lozinku.")
+        .required("Molimo Vas da potvrdite lozinku.")
+        .oneOf([yup.ref('password'), null], "Lozinke nisu iste.")
 };
 
 const passwordOptionalValidation = {
     password: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.password') }))
-        .min(6, i18next.t('validation.minimum_characters', { number: 6, field: i18next.t('label.password') }))
+        .string()
+        .min(6, "Lozinka mora da ima minimum 6 karaktera.")
 };
 
 const passwordConfirmOptionalValidation = {
@@ -34,49 +33,49 @@ const passwordConfirmOptionalValidation = {
         .when('password', {
             is: value => value && value !== '',
             then: yup
-                .string(i18next.t('validation.must_be_string', { field: i18next.t('label.confirm_password') }))
-                .oneOf([yup.ref('password'), null], i18next.t('validation.passwords_must_match'))
-                .required(i18next.t('validation.field_required', { field: i18next.t('label.confirm_password') }))
+                .string("Molimo Vas da unesete validnu lozinku.")
+                .oneOf([yup.ref('password'), null], "Lozinke nisu iste.")
+                .required("Morate potvrditi lozinku.")
         })
 };
     
 const firstNameValidation = {
     first_name: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.first_name') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.first_name') })),
+        .string("Ime je obavezno polje.")
+        .required("Ime je obavezno polje."),
 };
 
 const lastNameValidation = {
     last_name: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.last_name') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.last_name') })),
+        .string("Prezime je obavezno polje.")
+        .required("Prezime je obavezno polje."),
 };
 
 const currentPasswordValidation = {
     password_current: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.password') }))
-        .min(6, i18next.t('validation.minimum_characters', { number: 6, field: i18next.t('label.password') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.password') }))
+        .string()
+        .min(6, "Lozinka mora da bude minimum 6 karaktera.")
+        .required("Lozinka je obavezno polje.")
 };
 
 const newPasswordValidation = {
     password: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.password') }))
-        .min(6, i18next.t('validation.minimum_characters', { number: 6, field: i18next.t('label.password') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.password') }))
+        .string()
+        .min(6, "Lozinka mora da ima minimum 6 karaktera.")
+        .required("Lozinka je obavezno polje.")
 };
 
 const newPasswordConfirmValidation = {
     password_confirmation: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.confirm_password') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.confirm_password') }))
-        .oneOf([yup.ref('password'), null], i18next.t('validation.passwords_must_match'))
+        .string()
+        .required("Molimo Vas da potvrdite lozinku.")
+        .oneOf([yup.ref('password'), null], "Lozinke nisu iste.")
 };
 
 const nameValidation = {
     name: yup
-        .string(i18next.t('validation.must_be_string', { field: i18next.t('label.name') }))
-        .required(i18next.t('validation.field_required', { field: i18next.t('label.name') })),
+        .string("Naziv je obavezno polje.")
+        .required("Naziv je obavezno polje."),
 }
 
 //auth forms validation

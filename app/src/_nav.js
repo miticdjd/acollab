@@ -15,40 +15,40 @@ const _nav = [
   {
     component: CNavItem,
     roles: [],
-    name: "label.dashboard",
+    name: "Početna",
     to: "/dashboard",
     icon: <FontAwesomeIcon className="nav-icon" icon={faGauge} />,
   },
   {
     component: CNavItem,
     roles: [ROLE_ADMINISTRATOR],
-    name: "label.activity_tracking",
+    name: "Aktivnosti",
     to: "/activity-tracking",
     icon: <FontAwesomeIcon className="nav-icon" icon={faClockRotateLeft} />,
   },
   {
     component: CNavGroup,
     roles: [ROLE_ADMINISTRATOR],
-    name: "label.settings",
+    name: "Podešavanja",
     to: "/settings",
     icon: <FontAwesomeIcon className="nav-icon" icon={faGears} />,
     items: [
       {
         component: CNavItem,
         roles: [ROLE_ADMINISTRATOR],
-        name: "label.general_settings",
+        name: "Generalna podešavanja",
         to: "/settings/general",
       },
       {
         component: CNavItem,
         roles: [ROLE_ADMINISTRATOR],
-        name: "label.users",
+        name: "Upravljanje korisnicima",
         to: "/settings/users",
       },
       {
         component: CNavItem,
         roles: [ROLE_ADMINISTRATOR],
-        name: "label.roles",
+        name: "Upravljanje rolama",
         to: "/settings/roles",
       }
     ]

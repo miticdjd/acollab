@@ -70,7 +70,7 @@ class SettingController extends Controller
         $updated = $settingService->getByGroup($group);
 
         return (new BasicResponse($updated))
-            ->setMessage(__('label.setting.saved'))
+            ->setMessage('Uspešno ste promenili podešavanja.')
             ->response();
     }
 }

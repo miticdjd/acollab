@@ -38,7 +38,7 @@ class LoginController extends Controller
                 'user' => $user,
                 'roles' => $user->roles()->get()->pluck('name')
             ]))
-                ->setMessage(__('label.login.success'))
+                ->setMessage('Dobrodošli nazad.')
                 ->response();
         } catch (AuthException $e) {
 

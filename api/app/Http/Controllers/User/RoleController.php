@@ -47,8 +47,6 @@ class RoleController extends Controller
         $perPage = new PerPage($request);
         $roles = $role->getAllPaginated($sort, $perPage);
 
-
-
         return (new CollectionResponse($roles))
             ->response();
     }
@@ -80,7 +78,7 @@ class RoleController extends Controller
         $created = $roleService->add($request->validated());
 
         return (new BasicResponse($created))
-            ->setMessage(__('label.role.created'))
+            ->setMessage('Rola je uspešno kreirana.')
             ->response();
     }
 
@@ -97,7 +95,7 @@ class RoleController extends Controller
             $updated = $roleService->update($role, $request->validated());
 
             return (new BasicResponse($updated))
-                ->setMessage(__('label.role.updated'))
+                ->setMessage('Rola je promenjena.')
                 ->response();
         } catch (RoleException $e) {
 
@@ -122,7 +120,7 @@ class RoleController extends Controller
             if ($roleService->remove($role)) {
 
                 return (new BasicResponse())
-                    ->setMessage(__('label.role.deleted'))
+                    ->setMessage('Rola je obrisana.')
                     ->response();
             }
 

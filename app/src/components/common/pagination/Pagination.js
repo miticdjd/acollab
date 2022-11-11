@@ -35,7 +35,7 @@ const Pagination = ({meta, onHadlePage, onHandlePerPage}) => {
                 </CPaginationItem>
             </CPagination>
             <div>
-                <CDropdown>
+                <CDropdown className="mx-2">
                     <CDropdownToggle color="white" className="text-gray-700"><span className="text-gray-700">{meta.per_page}</span></CDropdownToggle>
                     <CDropdownMenu className="dropdown-custom py-0">
                         <CDropdownItem className="text-gray-700" onClick={() => onHandlePerPage(5)}>5</CDropdownItem>

@@ -7,9 +7,8 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="ACollab - Projekat za Univerzitet Metroplitan"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -25,25 +24,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script>
-      const usesDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches || false;
-      const favicon = document.getElementById('favicon');
-      const manifest = document.getElementById('manifest');
-
-      function switchIcon(usesDarkMode) {
-        if (usesDarkMode) { 
-          favicon.href = '%PUBLIC_URL%/favicon-dark.ico';
-          manifest.href='%PUBLIC_URL%/manifest-dark.json' 
-        } else {
-        favicon.href = '%PUBLIC_URL%/favicon.ico';
-        manifest.href='%PUBLIC_URL%/manifest.json' 
-        }
-      }
-
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener( "change", (e) => switchIcon(e.matches));
-      switchIcon(usesDarkMode);
-    </script>
-    <title>Hefes Technology Group</title>
+    <title>Acollab</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -8,7 +8,7 @@ class RoleNotAllowedToChangeException extends RoleException
      * User can't be found
      * @var string
      */
-    protected $message = 'This role is not allowed to be changed.';
+    protected $message = 'Ovu rolu nije dozvoljeno da se menja.';
 
     public function __construct()
     {

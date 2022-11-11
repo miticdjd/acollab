@@ -19,7 +19,7 @@
 .is-label-text, .is-input-text, .is-text {
     padding: 8px 10px;
     font-family: "Roboto Regular";
-    font-size: $size-12;
+    font-size: $size-14;
     color: $gray-base;
 
     &--bold {
@@ -33,13 +33,13 @@
 
 .dropdown-text {
     font-family: "Roboto Regular";
-    font-size: $size-12;
+    font-size: $size-14;
     color: $gray-base;
 }
 
 .text-gray-700 {
     font-family: "Roboto Regular";
-    font-size: $size-12;
+    font-size: $size-14;
     color: $gray-700;
 
     &::after,
@@ -52,9 +52,9 @@
 
 
 .is-btn {
-    width: $size-76;
+    width: $size-80;
     font-family: "Roboto Regular";
-    font-size: $size-10;
+    font-size: $size-14;
     color: $white;
 
     &:hover,
@@ -66,7 +66,7 @@
 
 .is-btn-modal {
     font-size: "Roboto regular";
-    font-size: $size-12;
+    font-size: $size-14;
     color: $white;
 
     &:hover,

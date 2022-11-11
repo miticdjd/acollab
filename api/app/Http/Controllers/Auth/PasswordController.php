@@ -36,7 +36,7 @@ class PasswordController extends Controller
         } catch (TokenException | AuthException $e) {}
 
         return (new BasicResponse())
-            ->setMessage(__('label.password.reset.instructions'))
+            ->setMessage('Instrukcije za promenu lozinke su poslate.')
             ->response();
     }
 
@@ -55,7 +55,7 @@ class PasswordController extends Controller
             );
 
             return (new BasicResponse())
-                ->setMessage(__('label.password.reset.success'))
+                ->setMessage('Uspešno ste resetovali lozinku.')
                 ->response();
         } catch (TokenException $e) {
 
@@ -86,7 +86,7 @@ class PasswordController extends Controller
             );
 
             return (new BasicResponse($user))
-                ->setMessage(__('label.password.change.saved'))
+                ->setMessage('Uspešno ste promenili lozinku.')
                 ->response();
         } catch (UserException $e) {
 
