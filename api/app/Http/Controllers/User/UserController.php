@@ -75,7 +75,7 @@ class UserController extends Controller
     {
         $created = $userService->add($request->validated());
 
-        return (new BasicResponse($created->load('address', 'departments', 'teams', 'position')))
+        return (new BasicResponse($created))
             ->setMessage(__('label.user.created'))
             ->response();
     }

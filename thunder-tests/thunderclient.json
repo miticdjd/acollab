@@ -8,12 +8,9 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-05-17T15:02:26.541Z",
-    "modified": "2022-05-17T15:04:52.584Z",
+    "modified": "2022-11-11T11:22:51.305Z",
     "headers": [],
     "params": [],
-    "auth": {
-      "type": "ntlm"
-    },
     "tests": [
       {
         "type": "res-code",
@@ -150,7 +147,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-05-17T17:10:33.364Z",
-    "modified": "2022-09-05T17:47:04.197Z",
+    "modified": "2022-11-11T11:28:49.308Z",
     "headers": [
       {
         "name": "Accept",
@@ -160,7 +157,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"first_name\": \"Draganche\",\n    \"last_name\": \"Mitich\",\n    \"email\": \"d.mitic@hefesgroup.com\",\n    \"position_id\": 1,\n    \"phone\": \"9999999999\",\n    \"address\": {\n        \"country_id\": 1,\n        \"city_id\": 1,\n        \"street\": \"Bulevar Mihajla Pupina\",\n        \"number\": 7,\n        \"apartment\": \"9\",\n        \"floor\": \"9\"\n    }\n}",
+      "raw": "{\n    \"first_name\": \"Draganche\",\n    \"last_name\": \"Mitich\",\n    \"email\": \"d.mitic@hefesgroup.com\"\n}",
       "form": []
     },
     "auth": {
@@ -229,7 +226,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-05-17T17:14:01.660Z",
-    "modified": "2022-06-13T17:14:59.050Z",
+    "modified": "2022-11-11T11:31:59.316Z",
     "headers": [
       {
         "name": "Accept",
@@ -239,7 +236,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"HTG - Information System\"\n}",
+      "raw": "{\n    \"name\": \"ACollab\"\n}",
       "form": []
     },
     "auth": {
@@ -276,11 +273,11 @@
     "colId": "826a1ee8-a60e-4ae7-9a4c-aeca994257de",
     "containerId": "",
     "name": "{{baseUrl}}/users/1",
-    "url": "{{baseUrl}}/users/10",
+    "url": "{{baseUrl}}/users/1",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-05-17T17:16:08.959Z",
-    "modified": "2022-08-11T19:32:39.417Z",
+    "modified": "2022-11-11T11:34:24.084Z",
     "headers": [
       {
         "name": "Accept",
@@ -303,7 +300,7 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-05-17T17:17:58.054Z",
-    "modified": "2022-09-24T10:56:46.418Z",
+    "modified": "2022-11-11T11:38:15.856Z",
     "headers": [
       {
         "name": "Accept",
@@ -313,7 +310,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"first_name\": \"Anastasia\",\n    \"last_name\": \"Nikolaidou Mitić\",\n    \"email\": \"a7887.nikolaidou@hefesgroup.com\",\n    \"password\": \"Secret321!\",\n    \"password_confirmation\": \"Secret321!\",\n    \"roles\": [1],\n    \"departments\": [1,2,3],\n    \"position_id\": 1,\n    \"phone\": \"7777777798\",\n    \"address\": {\n        \"country_id\": 1,\n        \"city_id\": 1,\n        \"street\": \"Bulevar Mihajla Pupina\",\n        \"number\": \"8\",\n        \"apartment\": \"50\",\n        \"floor\": \"88\",\n        \"additional_info\": \"99\"\n    }\n}",
+      "raw": "{\n    \"first_name\": \"Anastasia\",\n    \"last_name\": \"Nikolaidou Mitić\",\n    \"email\": \"a3.nikolaidou@hefesgroup.com\",\n    \"password\": \"Secret321!\",\n    \"password_confirmation\": \"Secret321!\",\n    \"roles\": [1]\n}",
       "form": []
     },
     "auth": {
@@ -327,11 +324,11 @@
     "colId": "826a1ee8-a60e-4ae7-9a4c-aeca994257de",
     "containerId": "",
     "name": "{{baseUrl}}/users/2",
-    "url": "{{baseUrl}}/users/12",
+    "url": "{{baseUrl}}/users/2",
     "method": "PUT",
     "sortNum": 40000,
     "created": "2022-05-17T17:18:27.463Z",
-    "modified": "2022-09-24T10:57:04.323Z",
+    "modified": "2022-11-11T11:38:47.923Z",
     "headers": [
       {
         "name": "Accept",
@@ -341,7 +338,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"first_name\": \"Anastasia\",\n    \"last_name\": \"Nikolaidou Mitić\",\n    \"email\": \"a736.nikolaidou@hefesgroup.com\",\n    \"password\": \"NewSecret321!\",\n    \"password_confirmation\": \"NewSecret321!\",\n    \"roles\": [1],\n    \"departments\": [1,2,3],\n    \"position_id\": 1,\n    \"phone\": \"333333833\",\n     \"address\": {\n        \"country_id\": 1,\n        \"city_id\": 1,\n        \"street\": \"Bulevar Mihajla Pupina\",\n        \"number\": \"8\",\n        \"apartment\": \"50\",\n        \"floor\": \"70\",\n        \"additional_info\": \"99\"\n    }\n}",
+      "raw": "{\n    \"first_name\": \"Anastasia\",\n    \"last_name\": \"Nikolaidou Mitić\",\n    \"email\": \"a.nikolaidou@hefesgroup.com\",\n    \"password\": \"NewSecret321!\",\n    \"password_confirmation\": \"NewSecret321!\",\n    \"roles\": [1]\n}",
       "form": []
     },
     "auth": {
@@ -355,11 +352,11 @@
     "colId": "826a1ee8-a60e-4ae7-9a4c-aeca994257de",
     "containerId": "",
     "name": "{{baseUrl}}/users/2",
-    "url": "{{baseUrl}}/users/6",
+    "url": "{{baseUrl}}/users/3",
     "method": "DELETE",
     "sortNum": 50000,
     "created": "2022-05-17T17:18:57.995Z",
-    "modified": "2022-09-22T18:32:50.874Z",
+    "modified": "2022-11-11T11:38:52.793Z",
     "headers": [
       {
         "name": "Accept",
@@ -491,11 +488,11 @@
     "colId": "a9f44857-c865-48a4-92d2-8ade389b5fd5",
     "containerId": "",
     "name": "{{baseUrl}}/roles/2",
-    "url": "{{baseUrl}}/roles/2",
+    "url": "{{baseUrl}}/roles/4",
     "method": "PUT",
     "sortNum": 50000,
     "created": "2022-05-17T17:20:43.682Z",
-    "modified": "2022-06-29T18:34:54.597Z",
+    "modified": "2022-11-11T12:45:05.077Z",
     "headers": [
       {
         "name": "Accept",
@@ -519,11 +516,11 @@
     "colId": "a9f44857-c865-48a4-92d2-8ade389b5fd5",
     "containerId": "",
     "name": "{{baseUrl}}/roles/2",
-    "url": "{{baseUrl}}/roles/2",
+    "url": "{{baseUrl}}/roles/4",
     "method": "DELETE",
     "sortNum": 60000,
     "created": "2022-05-17T17:20:56.834Z",
-    "modified": "2022-05-17T17:20:56.834Z",
+    "modified": "2022-11-11T12:45:12.304Z",
     "headers": [
       {
         "name": "Accept",

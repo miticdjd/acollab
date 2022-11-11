@@ -25,10 +25,7 @@ class ProfileController extends Controller
 
         return (new BasicResponse([
             'user' => $user,
-            'permissions' =>
-                    $user->hasRole(Role::ROLE_SUPER_ADMIN)
-                        ? Permission::all()->pluck('name')
-                        : $user->getAllPermissions()->pluck('name'),
+            'roles' => $user->roles()->get()->pluck('name')
         ]))
             ->response();
     }

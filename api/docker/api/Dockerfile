@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif bcmath fileinfo pcntl sockets zip xml
+RUN docker-php-ext-install pdo pdo_mysql mbstring exif bcmath fileinfo pcntl sockets zip xml opcache
 
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -37,6 +37,26 @@ RUN docker-php-ext-configure gd \
     --with-freetype
 
 RUN docker-php-ext-install gd
+
+RUN echo "file_uploads = On\n" \
+         "memory_limit = 512M\n" \
+         "upload_max_filesize = 100M\n" \
+         "post_max_size = 1G\n" \
+         "max_execution_time = 600\n" \
+         > /usr/local/etc/php/conf.d/uploads.ini
+
+RUN echo "auto_prepend_file = None\n" \
+         "allow_url_include = Off\n" \
+         > /usr/local/etc/php/conf.d/request.ini
+
+RUN echo "opcache.enable = 1\n" \
+         "opcache.memory_consumption = 256\n" \
+         "opcache.max_accelerated_files = 20000\n" \
+         "opcache.revalidate_freq = 0\n" \
+         "opcache.validate_timestamps = 1\n" \
+         "opcache.interned_strings_buffer = 16\n" \
+         "opcache.fast_shutdown = 1\n" \
+         > /usr/local/etc/php/conf.d/opcache.ini
 
 # Setup supervisor
 RUN apt-get update && apt-get install -y supervisor

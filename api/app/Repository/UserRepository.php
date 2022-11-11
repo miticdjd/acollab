@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\User;
-use App\Services\User\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -30,34 +29,15 @@ class UserRepository
     }
 
     /**
-     * Get all coordinators
-     *
-     * @param integer $countryId
-     * @param integer $perPage
-     * @return LengthAwarePaginator
-     */
-    public function getAllCoordinators(int $countryId, int $perPage): LengthAwarePaginator
-    {
-
-        return User::where('country_id', $countryId)
-            ->whereHas('roles', function($query) {
-
-                return $query->where('name', Role::ROLE_COORDINATOR);
-            })
-            ->paginate($perPage);
-    }
-
-    /**
      * Create new user
      * @param array $fields
      * @return User
      */
-    public function add(array $fields, $addressId): User
+    public function add(array $fields): User
     {
         $user = new User();
         $user->fill($fields);
         $user->password = Hash::make($fields['password']);
-        $user->fill(['address_id' => $addressId]);
 
         $user->save();
 
@@ -78,58 +58,6 @@ class UserRepository
     }
 
     /**
-     * Attach counties
-     * @param User $user
-     * @param array $countiesId
-     * @return User
-     */
-    public function attachCounties(User $user, array $countiesId): User
-    {
-        $user->counties()->sync($countiesId);
-
-        return $user;
-    }
-
-    /**
-     * Attach sports
-     * @param User $user
-     * @param array $sportsId
-     * @return User
-     */
-    public function attachSports(User $user, array $sportsId): User
-    {
-        $user->sports()->sync($sportsId);
-
-        return $user;
-    }
-
-    /**
-     * Attach teams
-     * @param User $user
-     * @param array $teamsId
-     * @return User
-     */
-    public function attachTeams(User $user, array $teamsId): User
-    {
-        $user->teams()->sync($teamsId);
-
-        return $user;
-    }
-
-    /**
-     * Attach departments
-     * @param User $user
-     * @param array $departmentsId
-     * @return User
-     */
-    public function attachDepartments(User $user, array $departmentsId): User
-    {
-        $user->departments()->sync($departmentsId);
-
-        return $user;
-    }
-
-    /**
      * Update user
      *
      * @param User $user
@@ -137,15 +65,12 @@ class UserRepository
      *
      * @return User
      */
-    public function update(User $user, array $fields, int $addressId = null): User
+    public function update(User $user, array $fields): User
     {
         $user->fill($fields);
 
         if (isset($fields['password'])) {
             $user->password = Hash::make($fields['password']);
-        }
-        if ($addressId) {
-            $user->fill(['address_id' => $addressId]);
         }
 
         $user->save();

@@ -13,7 +13,7 @@ class DefaultController extends Controller
      */
     public function welcome(): JsonResponse
     {
-        return (new BasicResponse([__('label.is.api')]))
+        return (new BasicResponse(['Dobrodošli na ACollab API.']))
             ->response();
     }
 }

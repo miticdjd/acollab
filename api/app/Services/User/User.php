@@ -2,9 +2,6 @@
 
 namespace App\Services\User;
 
-use App\Models\Address;
-use App\Models\Role;
-use App\Repository\AddressRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repository\UserRepository;
 use App\Models\User as UserModel;
@@ -27,11 +24,6 @@ class User
      * @var UserRepository
      */
     private UserRepository $userRepository;
-
-    /**
-     * @var AddressRepository
-     */
-    private AddressRepository $addressRepository;
 
     /**
      * @var Authenticate
@@ -61,15 +53,13 @@ class User
      * @param UserRepository $userRepository
      * @param Authenticate $authenticate
      * @param Uploader $uploader
-     * @param AddressRepository $addressRepository
      * @param Event $eventService
      */
-    public function __construct(UserRepository $userRepository, Authenticate $authenticate, Uploader $uploader, AddressRepository $addressRepository, Event $eventService)
+    public function __construct(UserRepository $userRepository, Authenticate $authenticate, Uploader $uploader, Event $eventService)
     {
         $this->userRepository = $userRepository;
         $this->authenticate = $authenticate;
         $this->uploader = $uploader;
-        $this->addressRepository = $addressRepository;
         $this->eventService = $eventService;
     }
 
@@ -124,20 +114,7 @@ class User
         $this->authorize('write', UserModel::class);
 
         $fields['status'] = Status::STATUS_ACTIVE;
-        if (isset($fields['address']) && is_array($fields['address'])) {
-            $address = $this->addressRepository->add($fields['address']);
-        } else {
-            $address = $this->addressRepository->add([]);
-        }
-        $user = $this->userRepository->add($fields, $address->id);
-
-        if (isset($fields['teams']) && is_array($fields['teams'])) {
-            $this->userRepository->attachTeams($user, $fields['teams']);
-        }
-
-        if (isset($fields['departments']) && is_array($fields['departments'])) {
-            $this->userRepository->attachDepartments($user, $fields['departments']);
-        }
+        $user = $this->userRepository->add($fields);
 
         if (isset($fields['roles']) && is_array($fields['roles'])) {
             $this->userRepository->attachRoles($user, $fields['roles']);
@@ -165,31 +142,14 @@ class User
         $this->authorize('write', UserModel::class);
 
         $original = $user->getOriginal();
-        $original['address'] = $user->address->getOriginal();
 
-        $addressChanges = null;
-
-        if (isset($data['address'])) {
-            $address = $this->addressRepository->update($user->address, $data['address']);
-            $addressChanges = $address->getChanges();
-        }
-
-        $user = $this->userRepository->update($user, $data, $user->address->id);
-
-        if (isset($data['teams']) && is_array($data['teams'])) {
-            $this->userRepository->attachTeams($user, $data['teams']);
-        }
-
-        if (isset($data['departments']) && is_array($data['departments'])) {
-            $this->userRepository->attachDepartments($user, $data['departments']);
-        }
+        $user = $this->userRepository->update($user, $data);
 
         if (isset($data['roles']) && is_array($data['roles'])) {
             $this->userRepository->attachRoles($user, $data['roles']);
         }
 
         $changes = $user->getChanges();
-        $changes['address'] = ($addressChanges) ?: [];
 
         $data = [
             'changes' => $changes,
@@ -211,13 +171,11 @@ class User
         $this->authorize('write', UserModel::class);
 
         $original = $user->getOriginal();
-        $original['address'] = $user->address->getOriginal();
 
         $user = $this->userRepository->updateStatus($user, Status::STATUS_REMOVED);
         $userDeleted = $this->userRepository->remove($user);
 
         $changes = $user->getChanges();
-        $changes['address'] = $user->address->getChanges();
         $data = [
             'changes' => $changes,
             'original' => $original,

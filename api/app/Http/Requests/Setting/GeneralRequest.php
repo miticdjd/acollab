@@ -24,8 +24,7 @@ class GeneralRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'tax' => 'required|integer',
+            'name' => 'required'
         ];
     }
 }

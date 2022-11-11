@@ -49,17 +49,7 @@ class User extends Authenticatable
         'username',
         'status',
         'email',
-        'avatar_url',
-        'roles',
-        'department_id',
-        'team_id',
-        'address_id',
-        'phone',
-        'position_id',
-        'address',
-        'departments',
-        'teams',
-        'position'
+        'avatar_url'
     ];
 
     /**
@@ -85,11 +75,7 @@ class User extends Authenticatable
      * Always load this relationships
      */
     protected $with = [
-        'roles',
-        'address',
-        'departments',
-        'teams',
-        'position'
+        'roles'
     ];
 
     /**
@@ -135,25 +121,5 @@ class User extends Authenticatable
         $type = $finfo->file(storage_path() . '/app/' . $this->avatar_url);
 
         return 'data:' . $type . ';base64,' . base64_encode($content);
-    }
-
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class, 'team_user', 'user_id', 'team_id');
-    }
-
-    public function departments(): BelongsToMany
-    {
-        return $this->belongsToMany(Department::class, 'department_user', 'user_id', 'department_id');
-    }
-
-    public function address(): BelongsTo
-    {
-        return $this->belongsTo(Address::class,'address_id', 'id');
-    }
-
-    public function position(): BelongsTo
-    {
-        return $this->belongsTo(Position::class,'position_id', 'id');
     }
 }

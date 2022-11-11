@@ -36,10 +36,7 @@ class LoginController extends Controller
             return (new BasicResponse([
                 'token' => $token->accessToken,
                 'user' => $user,
-                'permissions' =>
-                    $user->hasRole(Role::ROLE_SUPER_ADMIN)
-                        ? Permission::all()->pluck('name')
-                        : $user->getAllPermissions()->pluck('name'),
+                'roles' => $user->roles()->get()->pluck('name')
             ]))
                 ->setMessage(__('label.login.success'))
                 ->response();

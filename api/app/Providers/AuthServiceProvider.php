@@ -36,14 +36,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
-        Setting::class => SettingPolicy::class,
-        Country::class => CountryPolicy::class,
-        Currency::class => CurrencyPolicy::class,
-        Department::class => DepartmentPolicy::class,
-        CompanyType::class => CompanyTypePolicy::class,
-        Team::class => TeamPolicy::class,
-        City::class => CityPolicy::class,
-        Company::class => CompanyPolicy::class,
+        Setting::class => SettingPolicy::class
     ];
 
     /**
@@ -60,7 +53,7 @@ class AuthServiceProvider extends ServiceProvider
 
         /** Set all permission to a super admin user */
         Gate::before(function($user, $ability) {
-            return $user->hasRole(Role::ROLE_SUPER_ADMIN) ? true : null;
+            return $user->hasRole(Role::ROLE_ADMINISTRATOR) ? true : null;
         });
     }
 }

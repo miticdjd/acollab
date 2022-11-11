@@ -20,7 +20,9 @@ class Role
     /**
      * Default role
      */
-    public const ROLE_SUPER_ADMIN = 'SuperAdmin';
+    public const ROLE_ADMINISTRATOR = 'Administrator';
+    public const ROLE_MANAGER = 'Manager';
+    public const ROLE_DEVELOPER = 'Developer';
 
     /**
      * Columns that are sortable
@@ -55,7 +57,9 @@ class Role
     public static function all(): array
     {
         return [
-            self::ROLE_SUPER_ADMIN
+            self::ROLE_ADMINISTRATOR,
+            self::ROLE_MANAGER,
+            self::ROLE_DEVELOPER
         ];
     }
 

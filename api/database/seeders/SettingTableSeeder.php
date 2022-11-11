@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Setting;
 use App\Services\Setting\Group;
-use App\Services\Setting\Pagination;
 
 class SettingTableSeeder extends Seeder
 {
@@ -18,8 +17,7 @@ class SettingTableSeeder extends Seeder
     {
         $settings = [
             Group::GROUP_GENERAL => [
-                'name' => 'Hefes Technology Group - Information System',
-                'tax' => 20,
+                'name' => 'ACollab'
             ]
         ];
 
