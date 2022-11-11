@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from "formik";
-import { useTranslation } from 'react-i18next';
 import {
     CButton,
     CCard,
@@ -17,18 +16,17 @@ import InputText from "../../common/form/InputText";
 import Spinner from "../../common/spinner/Spinner";
 import FormContentLoader from "../../common/form/FormContentLoader";
 import { GENERAL_SETTINGS } from "../../../services/validation/form.validation";
-import { PERMISSION_SETTINGS_WRITE } from "../../../constants/permissions";
-import { hasPermission } from "../../../services/helpers/autorization"
+import { ROLE_ADMINISTRATOR } from "../../../constants/roles";
+import { hasRole } from "../../../services/helpers/autorization"
 import { fetchSettings, refreshErrors, settingsUpdate } from '../../../redux/settings/general/generalSlice'
 
 const GeneralSettings = () => {
     const navigate = useNavigate();
     const generalSettingsForm = useRef();
-    const { t } = useTranslation();
     const { general, errors, isSubmitting, loadingDetails } = useSelector(state => state.general);
-    const { permissions } = useSelector(state => state.auth);
+    const { roles } = useSelector(state => state.auth);
     const dispatch = useDispatch();
-    const canUpdateSettings = hasPermission(permissions, PERMISSION_SETTINGS_WRITE);
+    const canUpdateSettings = hasRole(roles, ROLE_ADMINISTRATOR);
     const handleGeneralSettingsSave = () => generalSettingsForm.current.submitForm();
     const handleGeneralSettingsSubmit = (values) => dispatch(settingsUpdate({values}));
     const handleCancel = () => navigate("/dashboard");
@@ -51,7 +49,7 @@ const GeneralSettings = () => {
             <CCol>
                 <CCard>
                     <CCardHeader className="bg-white">
-                        {t('label.general_settings')}
+                        Podešavanja
                     </CCardHeader>
                     {loadingDetails && <FormContentLoader rows={2}/>}
                     {!loadingDetails && <CCardBody className='mb-100'>
@@ -61,25 +59,15 @@ const GeneralSettings = () => {
                         onSubmit={handleGeneralSettingsSubmit}
                         enableReinitialize={true}
                         initialValues={{
-                            name: general && general.name,
-                            tax: general && general.tax
+                            name: general && general.name
                         }}
                         >
                         {({ handleSubmit, touched, errors, values, handleChange }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                             <InputText
                                 field="name"
-                                placeholder={t('placeholder.name')}
-                                label={t('label.name')}
-                                values={values}
-                                touched={touched}
-                                errors={errors}
-                                handleChange={handleChange}
-                            />
-                            <InputText
-                                field="tax"
-                                placeholder={t('placeholder.tax')}
-                                label={t('label.tax')}
+                                placeholder="Molimo Vas da unesete naziv aplikacije"
+                                label="Naziv aplikacije"
                                 values={values}
                                 touched={touched}
                                 errors={errors}
@@ -91,8 +79,8 @@ const GeneralSettings = () => {
                     </CCardBody>}
                     {(!loadingDetails && canUpdateSettings) && (
                         <CCardFooter className="bg-white">
-                            <CButton type="button" color="primary" className="is-btn me-3" onClick={handleGeneralSettingsSave} disabled={isSubmitting}>{isSubmitting ? <Spinner smallSize={true}/> :  '' }{t('label.save')}</CButton>
-                            <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>{t('label.cancel')}</CButton>
+                            <CButton type="button" color="primary" className="is-btn me-3" onClick={handleGeneralSettingsSave} disabled={isSubmitting}>{isSubmitting ? <Spinner smallSize={true}/> :  '' }Sačuvaj</CButton>
+                            <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>Odustani</CButton>
                         </CCardFooter>
                     )}
                 </CCard>

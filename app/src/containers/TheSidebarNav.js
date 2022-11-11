@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { hasOneOfPermissions } from '../services/helpers/autorization';
+import { hasOneOfRoles } from '../services/helpers/autorization';
 
 
 export const TheSidebarNav = ({ items }) => {
   const { t } = useTranslation();
-  const authUserPermissions = useSelector(state => state.auth.permissions);
+  const authUserRoles = useSelector(state => state.auth.roles);
   const location = useLocation()
   const navLink = (name, icon) => {
     return (
@@ -20,11 +20,11 @@ export const TheSidebarNav = ({ items }) => {
   }
 
   const navItem = (item, index) => {
-    const { component, permissions, name, icon, ...rest } = item
+    const { component, roles, name, icon, ...rest } = item
     const Component = component
 
     return (
-      (!permissions.length || hasOneOfPermissions(authUserPermissions, permissions)) &&
+      (!roles.length || hasOneOfRoles(authUserRoles, roles)) &&
       <Component
         {...(rest.to &&
           !rest.items && {
@@ -38,11 +38,11 @@ export const TheSidebarNav = ({ items }) => {
     )
   }
   const navGroup = (item, index) => {
-    const { component, permissions, name, icon, to, ...rest } = item
+    const { component, roles, name, icon, to, ...rest } = item
     const Component = component
     
     return (
-     (!permissions.length || hasOneOfPermissions(authUserPermissions, permissions)) &&
+     (!roles.length || hasOneOfRoles(authUserRoles, roles)) &&
       <Component
         idx={String(index)}
         key={index}

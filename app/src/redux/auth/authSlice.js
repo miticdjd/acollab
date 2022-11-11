@@ -4,7 +4,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: {},
-        permissions: [],
+        roles: [],
         loadingDetails: false,
         isAuthenticated: process.env.REACT_APP_AUTHENTICATED || false, // false is default value
         errors: {}

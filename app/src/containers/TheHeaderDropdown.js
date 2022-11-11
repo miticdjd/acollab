@@ -11,7 +11,6 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 import { logout } from '../redux/auth/authSlice'
 
 const TheHeaderDropdown = () => {
@@ -38,11 +37,11 @@ const TheHeaderDropdown = () => {
       <CDropdownMenu className="py-0 dropdown-inset">
         <CDropdownItem onClick={handleClickOnProfile}>
           <FontAwesomeIcon icon={faUser} className="me-2" />
-          Profile
+          Profil
         </CDropdownItem>
         <CDropdownItem onClick={handleLogout}>
           <FontAwesomeIcon icon={faArrowRightFromBracket} className="me-2" />
-          Logout
+          Izloguj se
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

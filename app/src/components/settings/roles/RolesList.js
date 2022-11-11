@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
     CCard,
     CCardBody,
@@ -13,13 +12,12 @@ import {
 import Table from "../../common/table/Table";
 import Pagination from "../../common/pagination/Pagination";
 import ConfirmModal from "../../common/modals/ConfirmModal";
-import { PERMISSION_ROLES_WRITE } from "../../../constants/permissions";
-import { hasPermission } from "../../../services/helpers/autorization"
+import { ROLE_ADMINISTRATOR } from "../../../constants/roles";
+import { hasRole } from "../../../services/helpers/autorization"
 import { fetchRolesList, deleteRole } from "../../../redux/settings/roles/rolesSlice";
 import AddNewButton from "../../common/button/AddNewButton";
 
 const RolesList = () => {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
@@ -28,15 +26,15 @@ const RolesList = () => {
     const [itemForDelete, setItemForDelete] = useState(null);
     const [theadData, setTheadData] = useState([
         {
-            title: t('label.name'),
+            title: "Naziv",
             key: 'name',
             sort: 'asc'
         }
     ]);
-    const { permissions } = useSelector(state => state.auth);
+    const { roles } = useSelector(state => state.auth);
     const { rolesList, rolesMeta, loadingList } = useSelector(state => state.roles);
 
-    const canWriteRole = hasPermission(permissions, PERMISSION_ROLES_WRITE);
+    const canWriteRole = hasRole(roles, ROLE_ADMINISTRATOR);
     const handleColumnSort = (key, sortDirection) => {
         setActiveSortData({key, sortDirection});
         const headDate = [...theadData];
@@ -84,7 +82,7 @@ const RolesList = () => {
                     return ([
                         ...prevState, 
                         {
-                            title: t('label.options'),
+                            title: "Opcije",
                             key: 'options',
                             render: (item) => {
                                 return (
@@ -93,7 +91,7 @@ const RolesList = () => {
                                             to={`/settings/roles/edit/${item.id}`} 
                                             className="btn btn-sm btn-outline-primary m-1 table-btn"
                                         >
-                                            {t('label.change')}
+                                            Promeni
                                         </Link>
                 
                                         <button
@@ -104,7 +102,7 @@ const RolesList = () => {
                                             }}
                                             className="btn btn-sm btn-outline-danger m-1 ms-2 table-btn"
                                         >
-                                            {t('label.remove')}
+                                            Obriši
                                         </button>
                                     </span>
                                 );
@@ -124,9 +122,9 @@ const RolesList = () => {
                 <CCol>
                     <CCard>
                         <CCardHeader className="d-flex justify-content-between align-items-center bg-white">
-                            {t('label.roles_management')}
+                            Upravljanje rolama
                             {canWriteRole && (
-                                <AddNewButton to="/settings/roles/add" label={t('label.add_new')} />
+                                <AddNewButton to="/settings/roles/add" label="Dodaj novu rolu" />
                             )}
                         </CCardHeader>
                         <CCardBody className='mb-100'>
@@ -139,10 +137,10 @@ const RolesList = () => {
             
             <ConfirmModal
                 showModal={showDeleteModal}
-                modalTitle={t('text.confirm_delete')}
-                modalBodyText={t('text.confirm_role_delete_body_text')}
-                cancelBtnText={t('label.cancel')}
-                confirmBtnText={t('label.delete')}
+                modalTitle="Potvrdi brisanje"
+                modalBodyText="Da li ste sigurni da želite da obrišete ovu rolu?"
+                cancelBtnText="Odustani"
+                confirmBtnText="Obriši"
                 onCancel={handleDeleteModalCancel}
                 onConfirm={handleDeleteModalConfirm}
             ></ConfirmModal>

@@ -122,7 +122,7 @@ const ActivityFilters = ({
             <CCol>
                 <SearchInput 
                     field="searchActivities"
-                    placeholder="Search IP Address"
+                    placeholder="Pretraži po IP adresi"
                     handleSearch={onSearch}
                     >
                 </SearchInput>
@@ -130,7 +130,7 @@ const ActivityFilters = ({
                     <DropdownMultiSelect 
                         classes="ms-0 me-2"
                         options={innerState.userOptions}
-                        placeholder={t('placeholder.select_user')}
+                        placeholder="Izaberi korisnika"
                         value={innerState.selectedUsers}
                         multiple={true}
                         handleChange={(value, action) => {
@@ -146,7 +146,7 @@ const ActivityFilters = ({
                     <DropdownMultiSelect 
                         classes="ms-0 me-2"
                         options={innerState.eventTypesOptions}
-                        placeholder={t('placeholder.select_event')}
+                        placeholder="Izaberi događaj"
                         value={innerState.selectedEvents}
                         multiple={true}
                         handleChange={(value, action) => {
@@ -161,7 +161,8 @@ const ActivityFilters = ({
                     </DropdownMultiSelect>
                     <RangeDatePicker
                         onRangeDatePickerChange={onRangeDatePickerFilterChange}
-                        placeholder="Select date range">
+                        placeholder="Izaberi datum"
+                    >
                     </RangeDatePicker>
                 </div>
             </CCol>

@@ -30,11 +30,10 @@ const TheSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex">
-        <Link to="/dashboard">
-          <img className="sidebar-brand-full" alt="logo" src={logoWhite} height={20} />
-        </Link>
-        {/* <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
-        <img className="sidebar-brand-narrow" alt="logo" src={logoWhite} height={12} />
+        <span className="sidebar-brand-full">
+          ACollab
+        </span>
+        <span className="sidebar-brand-narrow" height={12}>AC</span>
       </CSidebarBrand>
 
       <CSidebarNav>

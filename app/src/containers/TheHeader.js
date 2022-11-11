@@ -11,9 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TheHeaderDropdown from "./TheHeaderDropdown";
 import { setConfig } from "../redux/config/configSlice";
 
-import logoBlack from "../assets/icons/logo_black.svg";
-import { Link } from "react-router-dom";
-
 const TheHeader = () => {
   const dispatch = useDispatch();
   const { sidebarShow } = useSelector((state) => state.config);
@@ -27,9 +24,9 @@ const TheHeader = () => {
         >
           <FontAwesomeIcon className="header-bars" icon={faBars} />
         </CHeaderToggler>
-        <Link className="ms-2 d-flex  d-md-none" to="/dashboard">
-          <img src={logoBlack} height={16} alt="Logo" />
-        </Link>
+        <span className="ms-2 d-flex  d-md-none" to="/dashboard">
+          ACollab
+        </span>
         <CHeaderNav className="ms-auto">
           <TheHeaderDropdown />
         </CHeaderNav>

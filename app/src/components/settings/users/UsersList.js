@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
     CCard,
     CCardBody,
@@ -13,13 +12,12 @@ import {
 import Table from "../../common/table/Table";
 import Pagination from "../../common/pagination/Pagination";
 import ConfirmModal from "../../common/modals/ConfirmModal";
-import { PERMISSION_USERS_WRITE } from "../../../constants/permissions";
-import { hasPermission } from "../../../services/helpers/autorization"
+import { ROLE_ADMINISTRATOR } from "../../../constants/roles";
+import { hasRole } from "../../../services/helpers/autorization";
 import { fetchUsersList, deleteUser } from "../../../redux/settings/users/usersSlice";
 import AddNewButton from "../../common/button/AddNewButton";
 
 const UsersList = () => {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
@@ -39,25 +37,25 @@ const UsersList = () => {
             }
         },
         {
-            title: t('label.first_name'),
+            title: "Ime",
             key: 'first_name',
             sort: 'asc'
         },
         {
-            title: t('label.last_name'),
+            title: "Prezime",
             key: 'last_name',
             sort: ''
         },
         {
-            title: t('label.email'),
+            title: "E-mail adresa",
             key: 'email',
             sort: ''
         }
     ]);
-    const { permissions } = useSelector(state => state.auth);
+    const { roles } = useSelector(state => state.auth);
     const { usersList, usersMeta, loadingList } = useSelector(state => state.users);
 
-    const canWriteUser = hasPermission(permissions, PERMISSION_USERS_WRITE);
+    const canWriteUser = hasRole(roles, ROLE_ADMINISTRATOR);
     const handleColumnSort = (key, sortDirection) => {
         setActiveSortData({key, sortDirection});
         const headData = theadData
@@ -104,7 +102,7 @@ const UsersList = () => {
                     return ([
                         ...prevState, 
                         {
-                            title: t('label.roles'),
+                            title: "Role",
                             key: 'roles',
                             render: (item)=> {
                                 return (
@@ -115,7 +113,7 @@ const UsersList = () => {
                             }
                         },
                         {
-                            title: t('label.status'),
+                            title: "Status",
                             key: 'status',
                             sort: '',
                             render: (item)=> {
@@ -127,7 +125,7 @@ const UsersList = () => {
                             }
                         },
                         {
-                            title: t('label.options'),
+                            title: "Opcije",
                             key: 'options',
                             render: (item) => {
                                 return (
@@ -136,7 +134,7 @@ const UsersList = () => {
                                             to={`/settings/users/edit/${item.id}`} 
                                             className="btn btn-sm btn-outline-primary m-1 table-btn"
                                         >
-                                            {t('label.change')}
+                                            Promeni
                                         </Link>
                 
                                         <button
@@ -147,7 +145,7 @@ const UsersList = () => {
                                             }}
                                             className="btn btn-sm btn-outline-danger m-1 ms-2 table-btn"
                                         >
-                                            {t('label.remove')}
+                                            Obriši
                                         </button>
                                     </span>
                                 );
@@ -166,9 +164,9 @@ const UsersList = () => {
                 <CCol>
                     <CCard>
                         <CCardHeader className="d-flex justify-content-between align-items-center bg-white">
-                            {t('label.users_management')}
+                            Upravljanje korisnicima
                             {canWriteUser && (
-                                <AddNewButton to="/settings/users/add" label={t('label.add_new')} />
+                                <AddNewButton to="/settings/users/add" label="Dodaj novog" />
                             )}
                         </CCardHeader>
                         <CCardBody className='mb-100'>
@@ -181,10 +179,10 @@ const UsersList = () => {
             
             <ConfirmModal
                 showModal={showDeleteModal}
-                modalTitle={t('text.confirm_delete')}
-                modalBodyText={t('text.confirm_user_delete_body_text')}
-                cancelBtnText={t('label.cancel')}
-                confirmBtnText={t('label.delete')}
+                modalTitle="Potrvrdi brisanje"
+                modalBodyText="Da li ste sigurni da želite da obrišete ovog korisnika?"
+                cancelBtnText="Odustani"
+                confirmBtnText="Obriši"
                 onCancel={handleDeleteModalCancel}
                 onConfirm={handleDeleteModalConfirm}
             ></ConfirmModal>

@@ -46,7 +46,7 @@ const Pagination = ({meta, onHadlePage, onHandlePerPage}) => {
                     </CDropdownMenu>
                 </CDropdown>
                 <span className="text-gray-700">
-                    Showing {(meta.total <= meta.per_page) ? meta.total : `${fromPage} - ${toPage}`} of {meta.total}
+                    Prikazuje {(meta.total <= meta.per_page) ? meta.total : `${fromPage} - ${toPage}`} od {meta.total}
                 </span>
             </div>
         </div>

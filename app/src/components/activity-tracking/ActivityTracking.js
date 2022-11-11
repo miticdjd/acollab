@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
     CCard,
     CCardBody,
@@ -12,13 +11,12 @@ import {
 
 import Table from "../common/table/Table";
 import Pagination from "../common/pagination/Pagination";
-import { PERMISSION_AUDIT_READ } from "../../constants/permissions";
+import { ROLE_ADMINISTRATOR } from "../../constants/roles";
 import { fetchActivitiesList } from "../../redux/activity-tracking/activitiesSlice";
-import { hasPermission } from "../../services/helpers/autorization"
+import { hasRole } from "../../services/helpers/autorization"
 import ActivityFilters from "./ActivityFilters";
 
 const ActivityTracking = () => {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [filters, setFilters] = useState(null);
@@ -26,7 +24,7 @@ const ActivityTracking = () => {
     const [activeSortData, setActiveSortData] = useState({key: 'date', sortDirection: 'desc'});
     const [theadData, setTheadData] = useState([
         {
-            title: t('label.user_id'),
+            title: 'Korisnički ID',
             key: 'id',
             sort: '',
             render: (item)=> {
@@ -38,7 +36,7 @@ const ActivityTracking = () => {
             }
         },
         {
-            title: t('label.user'),
+            title: 'Korisnik',
             key: 'user',
             sort: '',
             render: (item)=> {
@@ -50,27 +48,27 @@ const ActivityTracking = () => {
             }
         },
         {
-            title: t('label.event'),
+            title: 'Događaj',
             key: 'event_type',
             sort: ''
         },
         {
-            title: t('label.date'),
+            title: 'Datum',
             key: 'date',
             sort: 'desc',
             dataKey: 'created_at',
             dateAndTime: true
         },
         {
-            title: t('label.ip_address'),
+            title: 'IP Adresa',
             key: 'ip_address',
             sort: '',
         },
     ]);
-    const { permissions } = useSelector(state => state.auth);
+    const { roles } = useSelector(state => state.auth);
     const { activitiesList, activitiesMeta, loadingList } = useSelector(state => state.activities);
 
-    const canReadAudit = hasPermission(permissions, PERMISSION_AUDIT_READ);
+    const canReadAudit = hasRole(roles, ROLE_ADMINISTRATOR);
     const handleColumnSort = (key, sortDirection) => {
         setActiveSortData({key, sortDirection});
         const headData = theadData
@@ -109,7 +107,7 @@ const ActivityTracking = () => {
                     return ([
                         ...prevState, 
                         {
-                            title: t('label.options'),
+                            title: 'Opcije',
                             key: 'options',
                             render: (item) => {
                                 return (
@@ -118,7 +116,7 @@ const ActivityTracking = () => {
                                             to={`/activity-tracking/${item.id}`} 
                                             className="btn btn-sm btn-outline-primary m-1 table-btn"
                                         >
-                                            {t('label.details')}
+                                            Detalji
                                         </Link>
                                     </span>
                                 );
@@ -137,7 +135,7 @@ const ActivityTracking = () => {
                 <CCol>
                     <CCard>
                         <CCardHeader className="d-flex justify-content-between align-items-center bg-white">
-                            {t('label.activity_tracking')}
+                            Praćenje aktivnosti
                         </CCardHeader>
                         {canReadAudit && <CCardBody className='mb-100'>
                             <Table theadData={theadData} tbodyData={activitiesList} rowsPerPage={perPage} loadingTableData={loadingList} customClass={'table-striped'} onChangeColumnSort={handleColumnSort}></Table>

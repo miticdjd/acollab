@@ -17,8 +17,6 @@ const Login = React.lazy(() => import('./components/auth/Login'));
 const ForgotPassword = React.lazy(() => import('./components/auth/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./components/auth/ResetPassword'));
 
-
-
 function App() {
 
   return (

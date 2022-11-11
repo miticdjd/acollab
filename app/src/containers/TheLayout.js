@@ -10,9 +10,7 @@ import TheFooter from "./TheFooter";
 import PageSpinner from "../components/common/spinner/PageSpinner";
 
 const TheLayout = ({ history, pathname }) => {
-  const { isAuthenticated, loadingDetails } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, loadingDetails } = useSelector(state => state.auth);
 
   const getLayout = () => {
     if (pathname === "/") {

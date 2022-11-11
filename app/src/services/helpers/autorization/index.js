@@ -15,4 +15,12 @@ export function hasOneOfPermissions(userPermissions, permissions) {
 
     return false;
 }
+
+export function hasRole(roles, role) {
+    return true;
+}
+
+export function hasOneOfRoles(userRoles, roles) {
+    return true;
+}
   

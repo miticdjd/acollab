@@ -11,22 +11,17 @@ import {
     CCol,
     CRow
 } from '@coreui/react'
-import { useTranslation } from 'react-i18next';
 import { profileUpdate, passwordUpdate, refreshErrors } from '../../redux/userProfile/userProfileSlice'
 import InputText from '../common/form/InputText';
-import AddressInputGroup from '../common/form/AddressInputGroup';
 import Spinner from '../common/spinner/Spinner';
-import { fetchAllCitiesList } from "../../redux/settings/cities/citiesSlice";
 import { USER_PROFILE, USER_PROFILE_PASSWORD } from '../../services/validation/form.validation';
 
 const UserProfile = () => {
     const navigate = useNavigate();
     const profileForm = useRef();
     const passwordForm = useRef();
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
-    const { allCities } = useSelector(state => state.cities);
     const { 
       isPasswordSubmitting, 
       isProfileSubmitting,
@@ -40,42 +35,17 @@ const UserProfile = () => {
       const reqBody = {
         first_name: values.first_name,
         last_name: values.last_name,
-        email: values.email,
-        phone: values.phone ? values.phone : undefined,
-        address_id: values.address_id,
-        address: {
-          country_id: values.country_id ? values.country_id : undefined,
-          city_id: values.city_id ? values.city_id : undefined,
-          street: values.street ? values.street : undefined,
-          number: values.number ? values.number : undefined,
-          apartment: values.apartment ? values.apartment : undefined,
-          floor: values.floor ? values.floor : undefined,
-        }
+        email: values.email
       }
 
       dispatch(profileUpdate(reqBody))
     };
-
-    const onCitySelected = (e) => {
-      profileForm.current.setFieldValue('city_id', e.target.value);
-      const selectedCityObject = allCities.find(city => {
-          return city.id.toString() === e.target.value.toString();
-      })
-
-      if (selectedCityObject) {
-        profileForm.current.setFieldValue('country_id', selectedCityObject.country_id);
-      }
-    }
 
     const handlePasswordSubmit = (values) => {
       dispatch(passwordUpdate(values))
     };
 
     const handleCancel = () => navigate("/dashboard");
-
-    useEffect(() => {
-      dispatch(fetchAllCitiesList());
-    }, [dispatch])
 
     useEffect(() => {
         if (errors && Object.keys(errors).length > 0) {
@@ -100,7 +70,7 @@ const UserProfile = () => {
           <CCol>
             <CCard>
               <CCardHeader className="bg-white">
-                {t('label.profile')}
+                Profil
               </CCardHeader>
               <CCardBody className='mb-100'>
                 <Formik
@@ -111,23 +81,15 @@ const UserProfile = () => {
                   initialValues={{
                     first_name: user && user.first_name,
                     last_name: user && user.last_name,
-                    email: user && user.email,
-                    phone: user && user.phone,
-                    address_id: user && user.address_id,
-                    country_id: user && user.address?.country_id,
-                    city_id: user && user.address?.city_id,
-                    street: user && user.address?.street,
-                    number: user && user.address?.number,
-                    apartment: user && user.address?.apartment ?  user.address?.apartment : undefined,
-                    floor: user && user.address?.floor ? user.address?.floor : undefined,
+                    email: user && user.email
                   }}
                 >
                   {({ handleSubmit, touched, errors, values, handleChange }) => (
                   <Form noValidate onSubmit={handleSubmit}>
                       <InputText
                         field="first_name"
-                        placeholder={t('placeholder.first_name')}
-                        label={t('label.first_name')}
+                        placeholder="Molimo Vas da unesete ime"
+                        label="Ime"
                         values={values}
                         touched={touched}
                         errors={errors}
@@ -135,8 +97,8 @@ const UserProfile = () => {
                       />
                       <InputText
                         field="last_name"
-                        placeholder={t('placeholder.last_name')}
-                        label={t('label.last_name')}
+                        placeholder="Molimo Vas da unesete prezime"
+                        label="Prezime"
                         values={values}
                         touched={touched}
                         errors={errors}
@@ -144,45 +106,20 @@ const UserProfile = () => {
                       />
                       <InputText
                         field="email"
-                        placeholder={t('placeholder.email_address')}
-                        label={t('label.email_address')}
+                        placeholder="Molimo Vas da unesete e-mail adresu"
+                        label="E-mail adresa"
                         values={values}
                         touched={touched}
                         errors={errors}
                         handleChange={handleChange}
-                      />
-                       <InputText
-                        field="phone"
-                        placeholder={t('placeholder.phone')}
-                        label={t('label.phone')}
-                        values={values}
-                        touched={touched}
-                        errors={errors}
-                        handleChange={handleChange}
-                      />
-
-                      <AddressInputGroup
-                        titleLabel={t("address")}
-                        values={values}
-                        touched={touched}
-                        errors={errors}
-                        handleChange={handleChange}
-                        handleCityChange={onCitySelected}
-                        countryField="country_id"
-                        cityField="city_id"
-                        streetField="street"
-                        numberField="number"
-                        floorField="floor"
-                        apartmentField="apartment"
-                        additionalInfoField="additional_info"
                       />
                   </Form>
                   )}
                 </Formik>
               </CCardBody>
               <CCardFooter className="bg-white">
-                <CButton type="button" color="primary" className="is-btn me-3" onClick={handleProfileSave} disabled={isProfileSubmitting}>{isProfileSubmitting ? <Spinner smallSize={true}/> :  '' }{t('label.save')}</CButton>
-                <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>{t('label.cancel')}</CButton>
+                <CButton type="button" color="primary" className="is-btn me-3" onClick={handleProfileSave} disabled={isProfileSubmitting}>{isProfileSubmitting ? <Spinner smallSize={true}/> :  '' }Sačuvaj</CButton>
+                <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>Odustani</CButton>
               </CCardFooter>
             </CCard>
           </CCol>
@@ -191,7 +128,7 @@ const UserProfile = () => {
           <CCol>
             <CCard>
               <CCardHeader className="bg-white">
-                {t('label.password')}
+                Promenite lozinku
               </CCardHeader>
               <CCardBody className='mb-100'>
                 <Formik
@@ -209,8 +146,8 @@ const UserProfile = () => {
                     <Form noValidate onSubmit={handleSubmit}>
                         <InputText
                           field="password_current"
-                          placeholder={t('placeholder.current_password')}
-                          label={t('label.current_password')}
+                          placeholder="Molimo Vas da unesete trenutnu lozinku"
+                          label="Trenutna lozinka"
                           type="password"
                           values={values}
                           touched={touched}
@@ -219,8 +156,8 @@ const UserProfile = () => {
                         />
                         <InputText
                           field="password"
-                          placeholder={t('placeholder.new_password')}
-                          label={t('label.new_password')}
+                          placeholder="Molimo Vas da unesete novu lozinku"
+                          label="Nova lozinka"
                           type="password"
                           values={values}
                           touched={touched}
@@ -229,8 +166,8 @@ const UserProfile = () => {
                         />
                         <InputText
                           field="password_confirmation"
-                          placeholder={t('placeholder.confirm_new_password')}
-                          label={t('label.confirm_new_password')}
+                          placeholder="Molimo Vas da potvrdite novu lozinku"
+                          label="Potvrdite novu lozinku"
                           type="password"
                           values={values}
                           touched={touched}
@@ -242,8 +179,8 @@ const UserProfile = () => {
                 </Formik>
               </CCardBody>
               <CCardFooter className="bg-white">
-                <CButton type="button" color="primary" className="is-btn me-3" onClick={handlePasswordSave} disabled={isPasswordSubmitting}>{isPasswordSubmitting ? <Spinner smallSize={true}/> : '' }{t('label.save')}</CButton>
-                <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>{t('label.cancel')}</CButton>
+                <CButton type="button" color="primary" className="is-btn me-3" onClick={handlePasswordSave} disabled={isPasswordSubmitting}>{isPasswordSubmitting ? <Spinner smallSize={true}/> : '' }Sačuvaj</CButton>
+                <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>Odustani</CButton>
               </CCardFooter>
             </CCard>
           </CCol>

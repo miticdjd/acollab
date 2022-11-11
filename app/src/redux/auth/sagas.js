@@ -23,7 +23,7 @@ export function* userLogin({ payload }) {
       type: setAuthData.type,
       payload: {
         user: data.data.user,
-        permissions: data.data.permissions,
+        roles: data.data.roles,
         isAuthenticated: true,
       }
     });
@@ -166,7 +166,7 @@ export function* fetchWho() {
       type: setAuthData.type,
       payload: {
         user: data.data.user,
-        permissions: data.data.permissions,
+        roles: data.data.roles,
         isAuthenticated: true
       },
     })
