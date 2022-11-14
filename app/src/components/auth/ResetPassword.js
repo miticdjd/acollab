@@ -54,14 +54,14 @@ const ResetPassword = () => {
                   >
                     {({ handleSubmit, isSubmitting, touched, errors, handleChange }) => (
                       <Form noValidate onSubmit={handleSubmit}>
-                        <h3>{t('text.set_new_password')}</h3>
-                        <p className="text-muted">{t('text.enter_new_password')}</p>
+                        <h3>Promenite lozinku</h3>
+                        <p className="text-muted">Unesite novu lozinku za Vaš nalog.</p>
                         <CInputGroup className="mb-3">
                           <RectForm.Control
                             className="form-control"
                             type="password"
                             name="password"
-                            placeholder={t('label.password')}
+                            placeholder="Lozinka"
                             isInvalid={touched['password'] && !!errors['password']}
                             onChange={handleChange}
                           />
@@ -72,7 +72,7 @@ const ResetPassword = () => {
                             className="form-control"
                             type="password"
                             name="password_confirmation"
-                            placeholder={t('label.confirm_password')}
+                            placeholder="Potvrdite novu lozinku"
                             isInvalid={touched['password_confirmation'] && !!errors['password_confirmation']}
                             onChange={handleChange}
                           />
@@ -80,10 +80,10 @@ const ResetPassword = () => {
                         </CInputGroup>
                         <CRow>
                           <CCol lg={6}>
-                            <CButton type="submit" color="primary" className="px-4" disabled={isSubmitting}>{loadingDetails ? <Spinner /> : ''}{t('text.set_new_password')}</CButton>
+                            <CButton type="submit" color="primary" className="px-4" disabled={isSubmitting}>{loadingDetails ? <Spinner /> : ''}Podesi lozinku</CButton>
                           </CCol>
                           <CCol lg="6" className="d-flex justify-content-end text-lg-right pt-2">
-                            <Link to="/auth/login" color="link">{t('text.back_to_login')}</Link>
+                            <Link to="/auth/login" color="link">Nazad na login</Link>
                           </CCol>
                         </CRow>
                       </Form>

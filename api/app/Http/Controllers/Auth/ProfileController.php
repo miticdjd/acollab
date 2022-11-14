@@ -38,7 +38,7 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        $updated = $userService->update($user, $request->validated());
+        $updated = $userService->updateSelfUser($user, $request->validated());
 
         return (new BasicResponse($updated))
             ->setMessage('Uspešno ste promenili svoj profil.')

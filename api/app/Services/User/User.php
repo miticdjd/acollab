@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\Audit\Event;
 use App\Services\Audit\EventTypes;
+use Illuminate\Support\Facades\Auth;
 
 class User
 {
@@ -126,6 +127,34 @@ class User
         $newData['avatar_url'] = $avatarPath;
         $user = $this->userRepository->update($user, $newData);
         $this->eventService->add($user->id, UserModel::class, EventTypes::ENTITY_CREATED, $fields);
+
+        return $user;
+    }
+
+    /**
+     * Update user without checking for permission
+     *
+     * @param UserModel $user
+     * @param array $data
+     * @return void
+     */
+    public function updateSelfUser(UserModel $user, array $data)
+    {
+        $original = $user->getOriginal();
+
+        $user = $this->userRepository->update($user, $data);
+
+        if (isset($data['roles']) && is_array($data['roles'])) {
+            $this->userRepository->attachRoles($user, $data['roles']);
+        }
+
+        $changes = $user->getChanges();
+
+        $data = [
+            'changes' => $changes,
+            'original' => $original,
+        ];
+        $this->eventService->add($user->id, UserModel::class, EventTypes::ENTITY_UPDATED, $data);
 
         return $user;
     }

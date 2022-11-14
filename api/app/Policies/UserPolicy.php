@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Services\User\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -17,7 +18,7 @@ class UserPolicy
      */
     public function read(User $user): bool
     {
-        return $user->can('read_users');
+        return $user->hasAnyRole([Role::ROLE_ADMINISTRATOR, Role::ROLE_MANAGER, Role::ROLE_DEVELOPER]);
     }
 
     /**
@@ -28,6 +29,18 @@ class UserPolicy
      */
     public function write(User $user): bool
     {
-        return $user->can('write_users');
+        return $user->hasAnyRole([Role::ROLE_ADMINISTRATOR]);
+    }
+
+    /**
+     * Determine whether the user can update user model.
+     *
+     * @param User $user
+     * @param User $userForUpdate
+     * @return boolean
+     */
+    public function update(User $user, User $userForUpdate): bool
+    {
+        return $user->hasAnyRole([Role::ROLE_ADMINISTRATOR]) || $user->id === $userForUpdate->id;
     }
 }

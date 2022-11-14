@@ -51,14 +51,14 @@ const ForgotPassword = () => {
                                     >
                                         {({ handleSubmit, isSubmitting, touched, errors, handleChange }) => (
                                         <Form noValidate onSubmit={handleSubmit}>
-                                            <h3>{t('text.reset_password')}</h3>
-                                            <p className="text-muted">{t('text.enter_email_address_to_reset_password')}</p>
+                                            <h3>Zaboravljena lozinka</h3>
+                                            <p className="text-muted">Molimo Vas da unesete e-mail adresu vašega naloga. Ukoliko nalog postoji poslaćemo Vam instrukcije za resetovanje lozinke.</p>
                                             <CInputGroup className="mb-3">
                                                 <RectForm.Control
                                                     className="form-control"
                                                     type="email"
                                                     name="email"
-                                                    placeholder={t('label.email')}
+                                                    placeholder="E-mail adresa"
                                                     isInvalid={touched['email'] && !!errors['email']}
                                                     onChange={handleChange}
                                                 />
@@ -66,10 +66,10 @@ const ForgotPassword = () => {
                                             </CInputGroup>
                                             <CRow>
                                                 <CCol lg={6}>
-                                                    <CButton type="submit" color="primary" className="px-4" disabled={isSubmitting}>{loadingDetails ? <Spinner /> : ''}{t('label.reset')}</CButton>
+                                                    <CButton type="submit" color="primary" className="px-4" disabled={isSubmitting}>{loadingDetails ? <Spinner /> : ''}Resetuj</CButton>
                                                 </CCol>
                                                 <CCol lg="6" className="d-flex justify-content-end text-lg-right pt-2">
-                                                    <Link to="/auth/login" color="link">{t('text.back_to_login')}</Link>
+                                                    <Link to="/auth/login" color="link">Nazad na login</Link>
                                                 </CCol>
                                             </CRow>
                                         </Form>

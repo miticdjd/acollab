@@ -54,12 +54,12 @@ const Login = () => {
                                     >
                                         {({ handleSubmit, touched, errors, handleChange }) => (
                                         <Form onSubmit={handleSubmit}>
-                                            <h3>{t('label.login')}</h3>
-                                            <p className="text-muted">{t('text.sign_in_to_your_account')}</p>
+                                            <h3>Prijava</h3>
+                                            <p className="text-muted">Pristupute svom nalogu</p>
                                             <InputTextGroup
                                                 iconName={faUser}
                                                 field="email"
-                                                placeholder={t('label.email')}
+                                                placeholder="E-mail adresa"
                                                 touched={touched}
                                                 errors={errors}
                                                 handleChange={handleChange}
@@ -67,7 +67,7 @@ const Login = () => {
                                             <InputTextGroup
                                                 iconName={faLock}
                                                 field="password"
-                                                placeholder={t('label.password')}
+                                                placeholder="Lozinka"
                                                 type="password"
                                                 touched={touched}
                                                 errors={errors}
@@ -76,10 +76,10 @@ const Login = () => {
                                             />
                                             <CRow>
                                                 <CCol lg="6">
-                                                    <CButton type="submit" color="primary" className="px-4" disabled={loadingDetails}>{loadingDetails ? <Spinner /> : ''}{t('label.login')}</CButton>
+                                                    <CButton type="submit" color="primary" className="px-4" disabled={loadingDetails}>{loadingDetails ? <Spinner /> : ''}Prijava</CButton>
                                                 </CCol>
                                                 <CCol lg="6" className="d-flex justify-content-end text-lg-right pt-2">
-                                                    <Link to="/auth/forgot-password" color="link">{t('text.forgot_password')}</Link>
+                                                    <Link to="/auth/forgot-password" color="link">Zaboravili ste lozinku?</Link>
                                                 </CCol>
                                             </CRow>
                                         </Form>)}

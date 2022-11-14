@@ -44,7 +44,7 @@ class LoginController extends Controller
 
             return (new BasicResponse())
                 ->setSuccess(false)
-                ->setMessage(__('label.login.fail'))
+                ->setMessage('Vaše korisničko ime ili lozinka su pogrešno. Molimo Vas da pokušate ponovo.')
                 ->response()
                 ->setStatusCode(Response::HTTP_BAD_REQUEST);
         }

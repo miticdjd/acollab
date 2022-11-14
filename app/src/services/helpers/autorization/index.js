@@ -17,10 +17,20 @@ export function hasOneOfPermissions(userPermissions, permissions) {
 }
 
 export function hasRole(roles, role) {
-    return true;
+    if (roles && roles.length > 0) {
+        return roles.includes(role);
+    }
+
+    return false;
 }
 
 export function hasOneOfRoles(userRoles, roles) {
-    return true;
+    if (userRoles && userRoles.length > 0 && roles && roles.length > 0) {
+        return (roles.some(role => hasRole(userRoles, role))) 
+            ? true 
+            : false;
+    }
+
+    return false;
 }
   
