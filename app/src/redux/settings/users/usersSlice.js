@@ -5,6 +5,8 @@ const usersSlice = createSlice({
     initialState: {
         usersList: [],
         allUsers: [],
+        allManagers: [],
+        allDevelopers: [],
         usersMeta: {},
         isSubmitting: false,
         loadingDetails: false,
@@ -14,6 +16,8 @@ const usersSlice = createSlice({
     reducers: {
         fetchUsersList: () => {},
         fetchAllUsersList: () => {},
+        fetchAllManagers: () => {},
+        fetchAllDevelopers: () => {},
         addUser: () => {},
         editUser: () => {},
         deleteUser: () => {},
@@ -25,6 +29,8 @@ const usersSlice = createSlice({
 export const { 
     fetchUsersList,
     fetchAllUsersList,
+    fetchAllManagers,
+    fetchAllDevelopers,
     addUser,
     editUser, 
     deleteUser,

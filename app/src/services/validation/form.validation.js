@@ -78,6 +78,14 @@ const nameValidation = {
         .required("Naziv je obavezno polje."),
 }
 
+const codeValidation = {
+    code: yup
+        .string("Šifra je obavezno polje.")
+        .required("Šifra je obavezno polje.")
+        .length(3, "Šifra mora da bude 3 karaktera.")
+}
+
+
 //auth forms validation
 export const LOGIN = yup.object({
     ...emailValidation,
@@ -121,4 +129,9 @@ export const USER_SETTINGS_FORM = yup.object({
     ...emailValidation,
     ...passwordOptionalValidation,
     ...passwordConfirmOptionalValidation
+});
+
+export const PROJECT_SETTINGS_FORM = yup.object({
+    ...nameValidation,
+    ...codeValidation
 });

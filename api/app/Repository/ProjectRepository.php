@@ -5,6 +5,7 @@ namespace App\Repository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Project;
 use App\Services\Project\UserType;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProjectRepository
@@ -17,6 +18,23 @@ class ProjectRepository
     public function getAllPaginated(string $column, string $direction, int $perPage): LengthAwarePaginator
     {
         return Project::orderBy($column, $direction)->paginate($perPage);
+    }
+
+    /**
+     * Get all paginated for developer
+     *
+     * @param integer $userId
+     * @param string $column
+     * @param string $direction
+     * @param integer $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginatedForDeveloper(int $userId, string $column, string $direction, int $perPage): LengthAwarePaginator
+    {
+        return Project::whereHas('developers', function(Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->orderBy($column, $direction)->paginate($perPage);
     }
 
     /**

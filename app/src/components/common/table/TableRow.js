@@ -5,6 +5,13 @@ const TableRow = ({columns, data}) => {
     return (
         <tr>
             {columns.map((item, index) => {
+                if (item.key === 'options') {
+                    if (item.hasOwnProperty('render')) {
+                        return (<td key={`${data.id}-${index}`} style={{ textAlign: 'center' }}>{item.render(data)}</td>);
+                    }
+
+                    return <td key={`${data.id}-${index}`} style={{ textAlign: 'center' }}>{data[item.key]}</td>;
+                }
                 if (item.hasOwnProperty('render')) {
                     return (<td key={`${data.id}-${index}`}>{item.render(data)}</td>);
                 }

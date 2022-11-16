@@ -51,6 +51,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/users/all', [UserController::class, 'all'])
         ->name('users.list.all');
 
+    Route::get('/users/managers', [UserController::class, 'managers'])
+        ->name('users.list.managers');
+
+    Route::get('/users/developers', [UserController::class, 'developers'])
+        ->name('users.list.developers');
+
     Route::get('/users', [UserController::class, 'index'])
         ->name('users.list');
 

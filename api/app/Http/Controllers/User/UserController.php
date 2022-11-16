@@ -14,6 +14,7 @@ use App\Models\User as UserModel;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\Sorting\Sort;
 use App\Services\Sorting\PerPage;
+use App\Services\User\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,6 +29,38 @@ class UserController extends Controller
     public function all(User $user): JsonResponse
     {
         $users = $user->getAll();
+
+        return (new BasicResponse($users))
+            ->response();
+    }
+
+    /**
+     * Get all users that have a role manager
+     *
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function managers(User $user): JsonResponse
+    {
+        $users = $user->getAll()->filter(function($value, $key) {
+            return $value->hasRole(Role::ROLE_MANAGER);
+        });
+
+        return (new BasicResponse($users))
+            ->response();
+    }
+
+    /**
+     * Get all users that have a role developer
+     *
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function developers(User $user): JsonResponse
+    {
+        $users = $user->getAll()->filter(function($value) {
+            return $value->hasRole(Role::ROLE_DEVELOPER);
+        });
 
         return (new BasicResponse($users))
             ->response();

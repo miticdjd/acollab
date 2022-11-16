@@ -28,6 +28,7 @@ class Project extends Model
         'id',
         'name',
         'code',
+        'status',
         'description',
         'managers',
         'developers'

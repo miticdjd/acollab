@@ -5,6 +5,7 @@ import general from './settings/general/sagas';
 import users from './settings/users/sagas';
 import roles from './settings/roles/sagas';
 import activities from './activity-tracking/sagas';
+import projects from './projects/sagas';
 import userProfile from './userProfile/sagas';
 import config from './config/sagas';
 
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         users(),
         roles(),
         activities(),
+        projects(),
         userProfile(),
         config()
     ])

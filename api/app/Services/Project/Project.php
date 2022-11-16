@@ -62,6 +62,12 @@ class Project
         $direction = $sort->getDirection();
         $perPage = $perPage->getPerPage();
 
+        $user = Auth::user();
+        if ($user->hasRole(Role::ROLE_DEVELOPER)) {
+
+            return $this->projectRepository->getAllPaginatedForDeveloper($user->id, $column, $direction, $perPage);
+        }
+
         return $this->projectRepository->getAllPaginated($column, $direction, $perPage);
     }
 
@@ -93,6 +99,10 @@ class Project
         $user = Auth::user();
         if ($user->hasRole(Role::ROLE_ADMINISTRATOR) && isset($fields['managers']) && is_array($fields['managers'])) {
             $this->projectRepository->attachManagers($project, $fields['managers']);
+        }
+
+        if ($user->hasRole(Role::ROLE_MANAGER)) {
+            $this->projectRepository->attachManagers($project, [$user->id]);
         }
 
         if (isset($fields['developers']) && is_array($fields['developers'])) {
@@ -147,7 +157,7 @@ class Project
      */
     public function remove(ProjectModel $project): bool
     {
-        $this->authorize('write', ProjectModel::class);
+        $this->authorize('delete', ProjectModel::class);
 
         $original = $project->getOriginal();
 

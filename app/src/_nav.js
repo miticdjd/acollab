@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { faGears, faGauge, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faGears, faGauge, faClockRotateLeft, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CNavGroup, CNavItem } from "@coreui/react";
@@ -18,6 +18,13 @@ const _nav = [
     name: "Početna",
     to: "/dashboard",
     icon: <FontAwesomeIcon className="nav-icon" icon={faGauge} />,
+  },
+  {
+    component: CNavItem,
+    roles: [ROLE_ADMINISTRATOR, ROLE_MANAGER, ROLE_DEVELOPER],
+    name: "Projekti",
+    to: "/projects",
+    icon: <FontAwesomeIcon className="nav-icon" icon={faFolder} />,
   },
   {
     component: CNavItem,

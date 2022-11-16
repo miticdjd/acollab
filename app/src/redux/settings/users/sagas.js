@@ -5,6 +5,8 @@ import {
     refreshErrors,
     fetchUsersList,
     fetchAllUsersList,
+    fetchAllManagers,
+    fetchAllDevelopers,
     addUser,
     editUser,
     deleteUser,
@@ -59,6 +61,60 @@ export function* getAllUsers() {
       type: setUsersData.type,
       payload: {
         allUsers: response.data.data,
+      },
+    })
+  }
+
+  yield put({
+    type: setUsersData.type,
+    payload: {
+      loadingList: false,
+    },
+  })
+}
+
+export function* getAllManagers() {
+  yield put({
+    type: setUsersData.type,
+    payload: {
+      loadingList: true,
+    },
+  });
+
+  const response = yield call(usersService.getManagers);
+
+  if (response && response.status === 200) {
+    yield put({
+      type: setUsersData.type,
+      payload: {
+        allManagers: response.data.data,
+      },
+    })
+  }
+
+  yield put({
+    type: setUsersData.type,
+    payload: {
+      loadingList: false,
+    },
+  })
+}
+
+export function* getAllDevelopers() {
+  yield put({
+    type: setUsersData.type,
+    payload: {
+      loadingList: true,
+    },
+  });
+
+  const response = yield call(usersService.getDevelopers);
+
+  if (response && response.status === 200) {
+    yield put({
+      type: setUsersData.type,
+      payload: {
+        allDevelopers: response.data.data,
       },
     })
   }
@@ -176,6 +232,8 @@ export default function* rootSaga() {
   yield all([
     takeEvery(fetchUsersList.type, getUsersListWithPagination),
     takeEvery(fetchAllUsersList.type, getAllUsers),
+    takeEvery(fetchAllDevelopers.type, getAllDevelopers),
+    takeEvery(fetchAllManagers.type, getAllManagers),
     takeEvery(addUser.type, userAdd),
     takeEvery(editUser.type, userEdit),
     takeEvery(deleteUser.type, userDelete),

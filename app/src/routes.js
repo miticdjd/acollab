@@ -21,6 +21,10 @@ const ActivityDetails = React.lazy(() => import('./components/activity-tracking/
 //import user profile
 const UserProfile = React.lazy(() => import('./components/user-profile/UserProfile'))
 
+//import Projects
+const ProjectsList = React.lazy(() => import('./components/projects/ProjectsList'))
+const AddProject = React.lazy(() => import('./components/projects/AddProject'))
+const EditProject = React.lazy(() => import('./components/projects/EditProject'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -42,6 +46,11 @@ const routes = [
 
   //user profile
   { path: '/profile', name: 'User profile', element: UserProfile },
+
+  //projects
+  { path: '/projects', name: 'Projects', element: ProjectsList, exact: true},
+  { path: '/projects/add', name: 'Add project', element: AddProject, exact: true},
+  { path: '/projects/edit/:id', name: 'Edit project', element: EditProject, exact: true},
 ]
 
 export default routes

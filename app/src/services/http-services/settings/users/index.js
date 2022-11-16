@@ -18,6 +18,24 @@ export async function getUsers() {
       .catch(err => err && err);
 }
 
+export async function getManagers() {
+  return apiClient
+      .get('/users/managers')
+      .then(response => {
+          return response;
+      })
+      .catch(err => err && err);
+}
+
+export async function getDevelopers() {
+  return apiClient
+      .get('/users/developers')
+      .then(response => {
+          return response;
+      })
+      .catch(err => err && err);
+}
+
 export async function getSingleUser(userId) {
   return apiClient
     .get(`/users/${userId}`)
