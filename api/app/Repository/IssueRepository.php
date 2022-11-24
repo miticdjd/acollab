@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Issue;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class IssueRepository
@@ -16,6 +17,53 @@ class IssueRepository
     public function getAllPaginated(string $column, string $direction, int $perPage): LengthAwarePaginator
     {
         return Issue::orderBy($column, $direction)->paginate($perPage);
+    }
+
+    /**
+     * Filter all queries
+     *
+     * @param integer $perPage
+     * @param array $fields
+     * @param string $column
+     * @param string $direction
+     * @return LengthAwarePaginator
+     */
+    public function filterAll(int $perPage, array $fields, string $column, string $direction): LengthAwarePaginator
+    {
+        $query = Issue::query();
+
+        if (array_key_exists('name', $fields) && !empty($fields['name'])) {
+            $query->where('name', 'LIKE', '%' . $fields['name'] . '%');
+        }
+
+        if (array_key_exists('project_id', $fields) && is_array($fields['project_id'])) {
+            $query->whereIn('project_id', $fields['project_id']);
+        }
+
+        if (array_key_exists('issue_type_id', $fields) && is_array($fields['issue_type_id'])) {
+            $query->whereIn('issue_type_id', $fields['issue_type_id']);
+        }
+
+        if (array_key_exists('status', $fields) && is_array($fields['status'])) {
+            $query->whereIn('status', $fields['status']);
+        }
+
+        if (array_key_exists('user_id', $fields) && is_array($fields['user_id'])) {
+            $query->whereIn('user_id', $fields['user_id']);
+        }
+
+        if (array_key_exists('event_type', $fields) && is_array($fields['event_type'])) {
+            $query->whereIn('event_type', $fields['event_type']);
+        }
+
+        if (array_key_exists('created_at', $fields)) {
+            $start = new Carbon($fields['created_at']['start'] . '00:00:00');
+            $end = new Carbon($fields['created_at']['end'] . '23:59:59');
+
+            $query->whereBetween('created_at', [$start, $end]);
+        }
+
+        return $query->orderBy($column, $direction)->paginate($perPage);
     }
 
     /**

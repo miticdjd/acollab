@@ -131,6 +131,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/issues', [IssueController::class, 'index'])
         ->name('issues.list');
 
+    Route::post('/issues/filter', [IssueController::class, 'filter'])
+        ->name('issues.list.filter');
+
     Route::get('/issues/{issue}', [IssueController::class, 'details'])
         ->name('issues.details');
 

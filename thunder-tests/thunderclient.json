@@ -1334,5 +1334,33 @@
       "bearer": "{{authToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "a5f831a3-628f-4303-a104-9629ac983eaa",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/filter",
+    "url": "{{baseUrl}}/issues/filter",
+    "method": "POST",
+    "sortNum": 15000,
+    "created": "2022-11-24T16:49:46.207Z",
+    "modified": "2022-11-24T16:52:23.816Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"project_id\": [1],\n  \"issue_type_id\": [1],\n  \"status\": [\"qa_ready\"],\n  \"name\": \"is\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
   }
 ]

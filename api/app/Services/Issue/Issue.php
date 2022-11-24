@@ -63,6 +63,25 @@ class Issue
     }
 
     /**
+     * Filter all request regarding the issues
+     *
+     * @param Sort $sort
+     * @param array $fields
+     * @return LengthAwarePaginator
+     */
+    public function filterAll(Sort $sort, PerPage $perPage, array $fields): LengthAwarePaginator
+    {
+        $this->authorize('read', IssueModel::class);
+
+        $sort->setAdditionalColumns(self::COLUMNS_FOR_SORT);
+        $column = $sort->getColumn();
+        $direction = $sort->getDirection();
+        $perPage = $perPage->getPerPage();
+
+        return $this->issueRepository->filterAll($perPage, $fields, $column, $direction);
+    }
+
+    /**
      * Get all issues from database
      * @return Collection
      * @throws AuthorizationException

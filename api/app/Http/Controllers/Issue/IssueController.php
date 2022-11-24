@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Issue\AddRequest;
 use App\Http\Requests\Issue\EditRequest;
 use App\Http\Requests\Issue\EditStatusRequest;
+use App\Http\Requests\Issue\FilterRequest;
 use App\Services\Issue\Issue;
 use App\Models\Issue as IssueModel;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,23 @@ class IssueController extends Controller
 
         return (new CollectionResponse($issues))
             ->response();
+    }
+
+    /**
+     * Filter all issues
+     *
+     * @param Issue $issue
+     * @param FilterRequest $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function filter(Issue $issue, FilterRequest $request): JsonResponse
+    {
+        $sort = new Sort($request);
+        $perPage = new PerPage($request);
+        $list = $issue->filterAll($sort, $perPage, $request->validated());
+
+        return (new CollectionResponse($list))->response();
     }
 
     /**
