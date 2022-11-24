@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Models\AuditEvent;
+use App\Models\Issue;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Models\User;
 use App\Policies\AuditPolicy;
+use App\Policies\IssuePolicy;
 use App\Policies\ProjectPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
@@ -28,7 +30,8 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Setting::class => SettingPolicy::class,
         AuditEvent::class => AuditPolicy::class,
-        Project::class => ProjectPolicy::class
+        Project::class => ProjectPolicy::class,
+        Issue::class => IssuePolicy::class
     ];
 
     /**

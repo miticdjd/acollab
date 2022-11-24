@@ -29,7 +29,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-05-17T17:01:38.271Z",
-    "modified": "2022-11-15T17:52:01.164Z",
+    "modified": "2022-11-24T09:39:47.802Z",
     "headers": [
       {
         "name": "Accept",
@@ -42,7 +42,14 @@
       "raw": "{\n    \"email\": \"dragan.mitic.2334@metropolitan.ac.rs\",\n    \"password\": \"Secret321!\"\n}",
       "form": []
     },
-    "tests": []
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.data.token",
+        "action": "setto",
+        "value": "{{authToken}}"
+      }
+    ]
   },
   {
     "_id": "d505c9b5-cbeb-494f-8287-e87a07aa87b6",
@@ -1069,7 +1076,7 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-11-15T17:52:35.903Z",
-    "modified": "2022-11-15T18:26:53.698Z",
+    "modified": "2022-11-24T09:43:29.327Z",
     "headers": [
       {
         "name": "Accept",
@@ -1079,7 +1086,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"Project 2\",\n    \"code\": \"PR2\",\n    \"description\": \"This is some description\",\n    \"managers\": [1],\n    \"developers\": [1]\n}",
+      "raw": "{\n    \"name\": \"Project 1\",\n    \"code\": \"PR1\",\n    \"description\": \"This is some description\",\n    \"managers\": [1],\n    \"developers\": [1]\n}",
       "form": []
     },
     "auth": {
@@ -1150,6 +1157,149 @@
     "created": "2022-11-15T17:52:35.906Z",
     "modified": "2022-11-15T17:55:43.452Z",
     "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "4ecb985e-1ca3-4879-9d24-d9528d0bd853",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/all",
+    "url": "{{baseUrl}}/issues/all",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2022-11-24T08:45:31.360Z",
+    "modified": "2022-11-24T08:45:51.218Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "facb8297-9df0-4ee2-b7eb-e720dae070b4",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues",
+    "url": "{{baseUrl}}/issues",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-11-24T08:45:31.361Z",
+    "modified": "2022-11-24T08:48:02.278Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "1808abc4-f18f-461b-9a4d-19066ec22715",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/1",
+    "url": "{{baseUrl}}/issues/1",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-11-24T08:45:31.362Z",
+    "modified": "2022-11-24T08:48:14.960Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "185fa727-1bd7-478b-972f-8bb8f4876faf",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues",
+    "url": "{{baseUrl}}/issues",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-11-24T08:45:31.363Z",
+    "modified": "2022-11-24T10:34:25.984Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"project_id\": 1,\n    \"issue_type_id\": 1,\n    \"name\": \"Issue\",\n    \"description\": \"This is some desciprtion for issue\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "f66c5509-52be-4575-9bf3-390f79af5752",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/1",
+    "url": "{{baseUrl}}/issues/1",
+    "method": "PUT",
+    "sortNum": 40000,
+    "created": "2022-11-24T08:45:31.364Z",
+    "modified": "2022-11-24T10:34:17.065Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"project_id\": 1,\n    \"issue_type_id\": 1,\n    \"name\": \"Issue\",\n    \"description\": \"Updated isue\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "62231c5f-dd9c-4895-9e28-f589328fe330",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/1",
+    "url": "{{baseUrl}}/issues/1",
+    "method": "DELETE",
+    "sortNum": 50000,
+    "created": "2022-11-24T08:45:31.365Z",
+    "modified": "2022-11-24T10:34:43.831Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
     "params": [],
     "auth": {
       "type": "bearer",

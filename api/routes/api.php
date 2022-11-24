@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\DefaultController;
+use App\Http\Controllers\Issue\IssueController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\User\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -122,5 +123,24 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::delete('/projects/{project}', [ProjectController::class, 'remove'])
         ->name('projects.remove');
+
+    /** Issues management */
+    Route::get('/issues/all', [IssueController::class, 'all'])
+        ->name('issues.list.all');
+
+    Route::get('/issues', [IssueController::class, 'index'])
+        ->name('issues.list');
+
+    Route::get('/issues/{issue}', [IssueController::class, 'details'])
+        ->name('issues.details');
+
+    Route::post('/issues', [IssueController::class, 'add'])
+        ->name('issues.add');
+
+    Route::put('/issues/{issue}', [IssueController::class, 'edit'])
+        ->name('issues.update');
+
+    Route::delete('/issues/{issue}', [IssueController::class, 'remove'])
+        ->name('issues.remove');
 });
 

@@ -54,5 +54,12 @@
     "created": "2022-11-15T17:52:35.897Z",
     "sortNum": 180000,
     "folders": []
+  },
+  {
+    "_id": "b5288451-5995-463a-bd06-c089fbc85426",
+    "colName": "Issue",
+    "created": "2022-11-24T08:45:31.357Z",
+    "sortNum": 190000,
+    "folders": []
   }
 ]
