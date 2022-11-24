@@ -137,6 +137,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('/issues', [IssueController::class, 'add'])
         ->name('issues.add');
 
+    Route::put('/issues/{issue}/status', [IssueController::class, 'editStatus'])
+        ->name('issues.update.status');
+
     Route::put('/issues/{issue}', [IssueController::class, 'edit'])
         ->name('issues.update');
 

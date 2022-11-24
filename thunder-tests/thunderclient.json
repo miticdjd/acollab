@@ -1210,11 +1210,11 @@
     "colId": "b5288451-5995-463a-bd06-c089fbc85426",
     "containerId": "",
     "name": "{{baseUrl}}/issues/1",
-    "url": "{{baseUrl}}/issues/1",
+    "url": "{{baseUrl}}/issues/2",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-11-24T08:45:31.362Z",
-    "modified": "2022-11-24T08:48:14.960Z",
+    "modified": "2022-11-24T16:25:59.317Z",
     "headers": [
       {
         "name": "Accept",
@@ -1301,6 +1301,34 @@
       }
     ],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "845d2019-e981-44ab-b0b6-c034870f94e7",
+    "colId": "b5288451-5995-463a-bd06-c089fbc85426",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/1/status",
+    "url": "{{baseUrl}}/issues/2/status",
+    "method": "PUT",
+    "sortNum": 45000,
+    "created": "2022-11-24T16:24:41.278Z",
+    "modified": "2022-11-24T16:30:18.361Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"status\": \"qa_ready\"\n}",
+      "form": []
+    },
     "auth": {
       "type": "bearer",
       "bearer": "{{authToken}}"

@@ -117,6 +117,28 @@ class Issue
     }
 
     /**
+     * Update status of issue
+     *
+     * @param IssueModel $issue
+     * @param string $status
+     * @return IssueModel
+     */
+    public function updateStatus(IssueModel $issue, string $status): IssueModel
+    {
+        $original = $issue->getOriginal();
+        $issue = $this->issueRepository->updateStatus($issue, $status);
+        $changes = $issue->getChanges();
+
+        $data = [
+            'changes' => $changes,
+            'original' => $original,
+        ];
+        $this->eventService->add($issue->id, ProjectModel::class, EventTypes::ENTITY_UPDATED, $data);
+
+        return $issue;
+    }
+
+    /**
      * Remove issue
      * @param IssueModel $issue
      * @return bool

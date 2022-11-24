@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Issue\AddRequest;
 use App\Http\Requests\Issue\EditRequest;
+use App\Http\Requests\Issue\EditStatusRequest;
 use App\Services\Issue\Issue;
 use App\Models\Issue as IssueModel;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,6 +91,23 @@ class IssueController extends Controller
 
         return (new BasicResponse($updated->refresh()))
             ->setMessage('Task je uspešno promenjen.')
+            ->response();
+    }
+
+    /**
+     * Update task status
+     *
+     * @param EditStatusRequest $request
+     * @param IssueModel $issue
+     * @param Issue $issueService
+     * @return JsonResponse
+     */
+    public function editStatus(EditStatusRequest $request, IssueModel $issue, Issue $issueService): JsonResponse
+    {
+        $updated = $issueService->updateStatus($issue, $request->get('status'));
+
+        return (new BasicResponse($updated->refresh()))
+            ->setMessage('Status taska je uspešno promenjen.')
             ->response();
     }
 
