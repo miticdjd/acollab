@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Project;
+namespace App\Services\Issue;
 
 use App\Repository\IssueTypeRepository;
 use Illuminate\Support\Collection;

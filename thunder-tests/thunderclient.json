@@ -1362,5 +1362,23 @@
       "bearer": "{{authToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "72b396a0-f446-4686-bab6-1fff1b37237a",
+    "colId": "5318ebaf-9522-4312-bc31-73646d6f8e58",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/types",
+    "url": "{{baseUrl}}/issues/types",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2022-11-26T06:26:27.024Z",
+    "modified": "2022-11-26T06:27:04.779Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
   }
 ]
