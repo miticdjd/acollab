@@ -16,7 +16,7 @@ class IssueAttachment extends Model
      */
     protected $visible = ['id', 'issue_id', 'name', 'file', 'mime', 'sha256', 'issue'];
 
-    protected $fillable = ['issue_id', 'name', 'file', 'mime', 'sha256'];
+    protected $fillable = ['issue_id', 'name', 'mime', 'sha256'];
 
     /**
      * Guarded fields

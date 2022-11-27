@@ -14,7 +14,7 @@ class Issue extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status', 'project', 'issue_type', 'user'];
+    protected $visible = ['id', 'project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status', 'project', 'attachments', 'issue_type', 'user'];
 
     protected $fillable = ['project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status'];
 
@@ -26,13 +26,25 @@ class Issue extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Eager load relationships
+     *
+     * @var array
+     */
+    protected $with = [
+        'issueType',
+        'user',
+        'project',
+        'attachments'
+    ];
+
+    /**
      * Project relationship
      *
      * @return HasOne
      */
     public function project()
     {
-        return $this->hasOne(Project::class);
+        return $this->belongsTo(Project::class);
     }
 
     /**
@@ -42,7 +54,7 @@ class Issue extends Model
      */
     public function issueType()
     {
-        return $this->hasOne(IssueType::class);
+        return $this->belongsTo(IssueType::class);
     }
 
     /**
@@ -52,6 +64,16 @@ class Issue extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Attachments relationship
+     *
+     * @return void
+     */
+    public function attachments()
+    {
+        return $this->hasMany(IssueAttachment::class);
     }
 }

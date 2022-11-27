@@ -4,6 +4,7 @@ namespace App\Services\Issue;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Issue as IssueModel;
+use App\Models\IssueAttachment;
 use App\Repository\IssueRepository;
 use App\Services\Sorting\Sort;
 use App\Services\Sorting\PerPage;
@@ -12,7 +13,6 @@ use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\Audit\Event;
 use App\Services\Audit\EventTypes;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class Issue
 {
@@ -22,6 +22,13 @@ class Issue
      * @var IssueRepository
      */
     private IssueRepository $issueRepository;
+
+    /**
+     * Attachment
+     *
+     * @var Attachment
+     */
+    private Attachment $attachment;
 
     /**
      * Updated event service
@@ -39,9 +46,10 @@ class Issue
      * @param IssueRepository $issueRepository
      * @param Event $eventService
      */
-    public function __construct(IssueRepository $issueRepository, Event $eventService)
+    public function __construct(IssueRepository $issueRepository, Attachment $attachment, Event $eventService)
     {
         $this->issueRepository = $issueRepository;
+        $this->attachment = $attachment;
         $this->eventService = $eventService;
     }
 
@@ -108,6 +116,14 @@ class Issue
 
         $this->eventService->add($issue->id, IssueModel::class, EventTypes::ENTITY_CREATED, $fields);
 
+        if (isset($fields['attachments'])) {
+            foreach ($fields['attachments'] as $data) {
+                $attachment = $this->attachment->add($issue->id, $data);
+                $data['file'] = $attachment->file;
+                $this->eventService->add($attachment->id, IssueAttachment::class, EventTypes::ENTITY_CREATED, $data);
+            }
+        }
+
         return $issue;
     }
 
@@ -125,6 +141,14 @@ class Issue
         $original = $issue->getOriginal();
         $issue = $this->issueRepository->update($issue, $data);
         $changes = $issue->getChanges();
+
+        if (isset($data['attachments'])) {
+            foreach ($data['attachments'] as $file) {
+                $attachment = $this->attachment->add($issue->id, $file);
+                $file['file'] = $attachment->file;
+                $this->eventService->add($attachment->id, IssueAttachment::class, EventTypes::ENTITY_CREATED, $file);
+            }
+        }
 
         $data = [
             'changes' => $changes,

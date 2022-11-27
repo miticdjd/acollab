@@ -28,7 +28,10 @@ class AddRequest extends FormRequest
             'issue_type_id' => 'required|exists:issue_types,id',
             'user_id' => 'nullable|exists:users,id',
             'name' => 'required',
-            'description' => 'string'
+            'description' => 'string',
+            'attachments' => 'array',
+            'attachments.*.name' => 'required',
+            'attachments.*.file' => 'required',
         ];
     }
 }

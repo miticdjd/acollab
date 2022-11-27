@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\DefaultController;
+use App\Http\Controllers\Issue\AttachmentController;
 use App\Http\Controllers\Issue\IssueController;
 use App\Http\Controllers\Issue\IssueTypeController;
 use App\Http\Controllers\SettingController;
@@ -129,6 +130,15 @@ Route::group(['middleware' => 'auth:api'], function() {
         ->name('issues.types.list.all');
 
     /** Issues management */
+    Route::post('/issues/attachments/{issue}', [AttachmentController::class, 'upload'])
+        ->name('issues.attachment.upload');
+
+    Route::delete('/issues/attachments/{attachment}', [AttachmentController::class, 'remove'])
+        ->name('issues.attachment.download');
+
+    Route::get('/issues/attachments/{attachment}', [AttachmentController::class, 'download'])
+        ->name('issues.attachment.download');
+
     Route::get('/issues/all', [IssueController::class, 'all'])
         ->name('issues.list.all');
 

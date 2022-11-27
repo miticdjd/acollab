@@ -14,6 +14,8 @@ class EventTypes
     public const ENTITY_UPDATED = 'entity_updated';
     public const ENTITY_DELETED = 'entity_deleted';
 
+    public const FILE_DOWNLOADED = 'file_downloaded';
+
     /**
      * Get all events
      */
@@ -24,7 +26,8 @@ class EventTypes
             self::USER_LOGOUT,
             self::ENTITY_CREATED,
             self::ENTITY_UPDATED,
-            self::ENTITY_DELETED
+            self::ENTITY_DELETED,
+            self::FILE_DOWNLOADED
         ];
     }
 }
