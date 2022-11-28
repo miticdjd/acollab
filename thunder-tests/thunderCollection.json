@@ -68,5 +68,12 @@
     "created": "2022-11-26T06:26:27.020Z",
     "sortNum": 200000,
     "folders": []
+  },
+  {
+    "_id": "0f61e1f2-9072-4b26-b9c2-89a7c3cbd4d3",
+    "colName": "IssueStatus",
+    "created": "2022-11-28T14:49:30.834Z",
+    "sortNum": 210000,
+    "folders": []
   }
 ]

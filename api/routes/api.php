@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\Issue\AttachmentController;
 use App\Http\Controllers\Issue\IssueController;
+use App\Http\Controllers\Issue\IssueStatusController;
 use App\Http\Controllers\Issue\IssueTypeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\User\RoleController;
@@ -126,8 +127,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::delete('/projects/{project}', [ProjectController::class, 'remove'])
         ->name('projects.remove');
 
+    /** Issue types */
     Route::get('/issues/types', [IssueTypeController::class, 'all'])
         ->name('issues.types.list.all');
+
+    /** Issue statuses */
+    Route::get('/issues/statuses', [IssueStatusController::class, 'all'])
+        ->name('issues.status.list.all');
 
     /** Issues management */
     Route::post('/issues/attachments/{issue}', [AttachmentController::class, 'upload'])

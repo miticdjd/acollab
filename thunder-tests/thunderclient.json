@@ -1454,5 +1454,23 @@
       "bearer": "{{authToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "43e59e24-c867-46a8-a1e8-256e686fa1d8",
+    "colId": "0f61e1f2-9072-4b26-b9c2-89a7c3cbd4d3",
+    "containerId": "",
+    "name": "{{baseUrl}}/issues/statuses",
+    "url": "{{baseUrl}}/issues/statuses",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2022-11-28T14:49:30.838Z",
+    "modified": "2022-11-28T14:50:06.905Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
   }
 ]
