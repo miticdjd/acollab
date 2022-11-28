@@ -38,6 +38,25 @@ class Issue extends Model
     ];
 
     /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        static::created(function ($issue) {
+            $created = false;
+            do {
+                try {
+                    $issue->code = $issue->project->code . '-' . $issue->id;
+                    $issue->save();
+                    $created = true;
+                } catch (\Exception $e) {}
+            } while (!$created);
+        });
+    }
+
+    /**
      * Project relationship
      *
      * @return HasOne
