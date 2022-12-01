@@ -12,6 +12,7 @@ import userProfileReducer from "./userProfile/userProfileSlice";
 import configReducer from "./config/configSlice";
 import activitiesReducer from "./activity-tracking/activitiesSlice";
 import projectsReducer from "./projects/projectsSlice";
+import issuesReducer from "./issues/issuesSlice";
 
 const {
   createReduxHistory,
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   roles: rolesReducer,
   activities: activitiesReducer,
   projects: projectsReducer,
+  issues: issuesReducer,
   userProfile: userProfileReducer,
   config: configReducer,
 });

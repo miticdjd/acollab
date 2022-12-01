@@ -26,6 +26,11 @@ const ProjectsList = React.lazy(() => import('./components/projects/ProjectsList
 const AddProject = React.lazy(() => import('./components/projects/AddProject'))
 const EditProject = React.lazy(() => import('./components/projects/EditProject'))
 
+//import Issues
+const IssuesList = React.lazy(() => import('./components/issues/IssuesList'))
+const AddIssue = React.lazy(() => import('./components/issues/AddIssue'))
+const EditIssue = React.lazy(() => import('./components/issues/EditIssue'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -51,6 +56,11 @@ const routes = [
   { path: '/projects', name: 'Projects', element: ProjectsList, exact: true},
   { path: '/projects/add', name: 'Add project', element: AddProject, exact: true},
   { path: '/projects/edit/:id', name: 'Edit project', element: EditProject, exact: true},
+
+  //projects
+  { path: '/issues', name: 'Issues', element: IssuesList, exact: true},
+  { path: '/issues/add', name: 'Add issue', element: AddIssue, exact: true},
+  { path: '/issues/edit/:id', name: 'Edit issue', element: EditIssue, exact: true},
 ]
 
 export default routes

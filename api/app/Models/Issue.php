@@ -14,7 +14,7 @@ class Issue extends Model
      *
      * @var array
      */
-    protected $visible = ['id', 'project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status', 'project', 'attachments', 'issue_type', 'user'];
+    protected $visible = ['id', 'project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status', 'project', 'attachments', 'issueType', 'user'];
 
     protected $fillable = ['project_id', 'issue_type_id', 'user_id', 'name', 'code', 'description', 'status'];
 
