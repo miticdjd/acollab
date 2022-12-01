@@ -1574,7 +1574,7 @@
     "method": "PUT",
     "sortNum": 40000,
     "created": "2022-12-01T14:29:36.124Z",
-    "modified": "2022-12-01T14:34:54.933Z",
+    "modified": "2022-12-01T14:51:59.729Z",
     "headers": [
       {
         "name": "Accept",
@@ -1584,7 +1584,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"project_id\": 1,\n    \"name\": \"Sprint 1\",\n    \"objective\": \"Lunch a new productivity feature\",\n    \"start\": \"2022-12-1\",\n    \"end\": \"2022-12-15\",\n    \"issues\": [1]\n}",
+      "raw": "{\n    \"project_id\": 1,\n    \"name\": \"Sprint 1\",\n    \"objective\": \"Lunch a new productivity feature\",\n    \"start\": \"2022-12-1\",\n    \"end\": \"2022-12-15\",\n    \"issues\": [2,3,4,5,6]\n}",
       "form": []
     },
     "auth": {

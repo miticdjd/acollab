@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Issue\Status;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,8 +33,16 @@ class Sprint extends Model
         'start',
         'end',
         'project',
-        'issues'
+        'issues',
+        'statistics'
     ];
+
+    /**
+     * Append virtual field
+     *
+     * @var array
+     */
+    protected $appends = ['statistics'];
 
     /**
      * Always load this relationships
@@ -42,6 +51,19 @@ class Sprint extends Model
         'project',
         'issues'
     ];
+
+    /**
+     * Get statistics fields
+     *
+     * @return void
+     */
+    public function getStatisticsAttribute()
+    {
+        $doneIssues = $this->issues->where('status', Status::STATUS_DONE)->count();
+        $inProgressIssues = $this->issues->where('status',  '!=', Status::STATUS_DONE)->count();
+
+        return [ 'done' => $doneIssues, 'in_progress' => $inProgressIssues ];
+    }
 
     /**
      * Project relation

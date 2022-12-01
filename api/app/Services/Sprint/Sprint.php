@@ -85,6 +85,10 @@ class Sprint
 
         $sprint = $this->sprintRepository->add($fields);
 
+        if (isset($fields['issues'])) {
+            $this->sprintRepository->attachIssues($sprint, $fields['issues']);
+        }
+
         $this->eventService->add($sprint->id, SprintModel::class, EventTypes::ENTITY_CREATED, $fields);
 
         return $sprint;
@@ -104,6 +108,10 @@ class Sprint
         $original = $sprint->getOriginal();
 
         $sprint = $this->sprintRepository->update($sprint, $data);
+
+        if (isset($data['issues'])) {
+            $this->sprintRepository->attachIssues($sprint, $data['issues']);
+        }
 
         $changes = $sprint->getChanges();
 
