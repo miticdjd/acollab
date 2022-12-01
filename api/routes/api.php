@@ -14,6 +14,7 @@ use App\Http\Controllers\User\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Sprint\SprintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,5 +169,24 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::delete('/issues/{issue}', [IssueController::class, 'remove'])
         ->name('issues.remove');
+
+    /** Sprints management */
+    Route::get('/sprints/all', [SprintController::class, 'all'])
+        ->name('sprints.list.all');
+
+    Route::get('/sprints', [SprintController::class, 'index'])
+        ->name('sprints.list');
+
+    Route::get('/sprints/{sprint}', [SprintController::class, 'details'])
+        ->name('sprints.details');
+
+    Route::post('/sprints', [SprintController::class, 'add'])
+        ->name('sprints.add');
+
+    Route::put('/sprints/{sprint}', [SprintController::class, 'edit'])
+        ->name('sprints.update');
+
+    Route::delete('/sprints/{sprint}', [SprintController::class, 'remove'])
+        ->name('sprints.remove');
 });
 

@@ -1472,5 +1472,148 @@
       "bearer": "{{authToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "72542ccf-6b64-4029-bcd1-6739aaa75b05",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints/all",
+    "url": "{{baseUrl}}/sprints/all",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2022-12-01T14:29:36.120Z",
+    "modified": "2022-12-01T14:30:54.796Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8f9f5848-e011-45a0-a78d-8d435348e8e1",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints",
+    "url": "{{baseUrl}}/sprints",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-12-01T14:29:36.121Z",
+    "modified": "2022-12-01T14:31:32.729Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "b6ae5696-c681-480a-86e0-cd387f464284",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints/1",
+    "url": "{{baseUrl}}/sprints/1",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-12-01T14:29:36.122Z",
+    "modified": "2022-12-01T14:31:45.195Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "992f8dcb-296c-41c7-8d59-a70c9de9b5c9",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints",
+    "url": "{{baseUrl}}/sprints",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-12-01T14:29:36.123Z",
+    "modified": "2022-12-01T14:33:20.926Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"project_id\": 1,\n    \"name\": \"Project 1\",\n    \"objective\": \"Lunch a new productivity feature\",\n    \"start\": \"2022-12-1\",\n    \"end\": \"2022-12-15\",\n    \"issues\": [1]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "3ef0343d-152e-4a2d-bd32-c7502ee27201",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints/1",
+    "url": "{{baseUrl}}/sprints/1",
+    "method": "PUT",
+    "sortNum": 40000,
+    "created": "2022-12-01T14:29:36.124Z",
+    "modified": "2022-12-01T14:34:54.933Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"project_id\": 1,\n    \"name\": \"Sprint 1\",\n    \"objective\": \"Lunch a new productivity feature\",\n    \"start\": \"2022-12-1\",\n    \"end\": \"2022-12-15\",\n    \"issues\": [1]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "b0ba82a1-78ba-4069-bc6c-a3557bbf5112",
+    "colId": "4ab89499-442e-431e-8263-dea0d0fc4468",
+    "containerId": "",
+    "name": "{{baseUrl}}/sprints/2",
+    "url": "{{baseUrl}}/sprints/2",
+    "method": "DELETE",
+    "sortNum": 50000,
+    "created": "2022-12-01T14:29:36.125Z",
+    "modified": "2022-12-01T14:37:48.206Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": []
   }
 ]
