@@ -6,12 +6,14 @@ use App\Models\AuditEvent;
 use App\Models\Issue;
 use App\Models\Project;
 use App\Models\Setting;
+use App\Models\Sprint;
 use App\Models\User;
 use App\Policies\AuditPolicy;
 use App\Policies\IssuePolicy;
 use App\Policies\ProjectPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
+use App\Policies\SprintPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -31,7 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         Setting::class => SettingPolicy::class,
         AuditEvent::class => AuditPolicy::class,
         Project::class => ProjectPolicy::class,
-        Issue::class => IssuePolicy::class
+        Issue::class => IssuePolicy::class,
+        Sprint::class => SprintPolicy::class
     ];
 
     /**
