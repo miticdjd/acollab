@@ -17,7 +17,6 @@ import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization";
 import { fetchIssuesList, deleteIssue } from "../../redux/issues/issuesSlice";
 import AddNewButton from "../common/button/AddNewButton";
 import { getIssueStatusBg } from "../../services/helpers/badge";
-import { issueAdd } from "../../redux/issues/sagas";
 
 const IssuesList = () => {
     const dispatch = useDispatch();
@@ -34,14 +33,14 @@ const IssuesList = () => {
         },
         {
             title: "Projekat",
-            key: 'project.name',
-            sort: 'project.name',
+            key: 'project_id',
+            sort: '',
             render: item => item.project.name
         },
         {
             title: "Tip",
-            key: 'issue.name',
-            sort: 'issue.name',
+            key: 'issue_type_id',
+            sort: '',
             render: item => item.issue_type.name
         },
         {

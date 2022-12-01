@@ -39,7 +39,7 @@ class Issue
      * Columns that are sortable
      * @var array
      */
-    public const COLUMNS_FOR_SORT = ['name', 'code', 'status', 'type_id'];
+    public const COLUMNS_FOR_SORT = ['name', 'status', 'issue_type_id', 'project_id'];
 
     /**
      * Issue constructor.
