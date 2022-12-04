@@ -1,5 +1,14 @@
 import apiClient from '../../axios'
 
+export async function getIssuesWithFilters(perPage = 20, sort = 'name', direction = 'desc', page, filters) {
+  return apiClient
+    .post(`/issues/filter?per_page=${perPage}&sort=${sort}&direction=${direction}&page=${page}`, filters)
+    .then(response => {
+      return response;
+    })
+    .catch(err => err && err);
+}
+
 export async function getIssuesWithPagination(perPage = 20, sort = 'name', direction = 'desc' , page) {
   return apiClient
     .get(`/issues?per_page=${perPage}&sort=${sort}&direction=${direction}&page=${page}`)

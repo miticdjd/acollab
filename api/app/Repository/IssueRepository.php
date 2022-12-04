@@ -33,7 +33,10 @@ class IssueRepository
         $query = Issue::query();
 
         if (array_key_exists('name', $fields) && !empty($fields['name'])) {
-            $query->where('name', 'LIKE', '%' . $fields['name'] . '%');
+            $query->where(function($query) use ($fields) {
+                $query->where('name', 'LIKE', '%' . $fields['name'] . '%');
+                $query->orWhere('code', 'LIKE', '%' . $fields['name'] . '%');
+            });
         }
 
         if (array_key_exists('project_id', $fields) && is_array($fields['project_id'])) {

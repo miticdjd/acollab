@@ -17,11 +17,13 @@ import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization";
 import { fetchIssuesList, deleteIssue } from "../../redux/issues/issuesSlice";
 import AddNewButton from "../common/button/AddNewButton";
 import { getIssueStatusBg } from "../../services/helpers/badge";
+import Filter from "./Filter";
 
 const IssuesList = () => {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
+    const [filters, setFilters] = useState(null);
     const [activeSortData, setActiveSortData] = useState({key: 'name', sortDirection: 'asc'})
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [itemForDelete, setItemForDelete] = useState(null);
@@ -101,10 +103,15 @@ const IssuesList = () => {
         setShowDeleteModal(false);
     }
 
+    const handleFilterChanges = (filters) => {
+        const hasFilters = Object.values(filters).some(x => x !== undefined);
+        setFilters(hasFilters ? filters : null);
+    };
+
     useEffect(() => {
         const {key, sortDirection} = activeSortData;
-        dispatch(fetchIssuesList({perPage, key, sortDirection, currentPage}));
-    }, [currentPage, activeSortData, perPage, dispatch]);
+        dispatch(fetchIssuesList({perPage, key, sortDirection, currentPage, filters}));
+    }, [currentPage, activeSortData, perPage, filters, dispatch]);
 
     useEffect(() => {
         return () => {
@@ -150,6 +157,7 @@ const IssuesList = () => {
 
     return (
         <>
+            <Filter onFiltersChange={handleFilterChanges} />
             <CRow>
                 <CCol>
                     <CCard>

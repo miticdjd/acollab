@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { push } from "redux-first-history";
 
 export function* getIssuesListWithPagination({ payload }) {
-  const { perPage, key, sortDirection, currentPage} = payload;
+  const { perPage, key, sortDirection, currentPage, filters} = payload;
 
   yield put({
     type: setIssuesData.type,
@@ -24,7 +24,10 @@ export function* getIssuesListWithPagination({ payload }) {
     },
   });
 
-  const response = yield call(issuesService.getIssuesWithPagination, perPage , key, sortDirection, currentPage);
+  const response =
+    filters
+      ? yield call(issuesService.getIssuesWithFilters, perPage , key, sortDirection, currentPage, filters)
+      : yield call(issuesService.getIssuesWithPagination, perPage , key, sortDirection, currentPage);
 
   if (response && response.status === 200) {
     const { data } = response;

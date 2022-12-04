@@ -136,7 +136,7 @@ class Issue
      */
     public function update(IssueModel $issue, array $data): IssueModel
     {
-        $this->authorize('write', ProjectModel::class);
+        $this->authorize('write', IssueModel::class);
 
         $original = $issue->getOriginal();
         $issue = $this->issueRepository->update($issue, $data);

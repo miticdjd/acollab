@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Issue;
 
+use App\Services\Issue\Status;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditRequest extends FormRequest
@@ -28,6 +29,7 @@ class EditRequest extends FormRequest
             'issue_type_id' => 'required|exists:issue_types,id',
             'user_id' => 'nullable|exists:users,id',
             'name' => 'required',
+            'status' => 'required|in:' . join(',', Status::all()),
             'description' => 'string',
             'attachments' => 'array',
             'attachments.*.name' => 'required',

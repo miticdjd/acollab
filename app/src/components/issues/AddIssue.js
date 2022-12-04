@@ -19,7 +19,7 @@ import Spinner from "../common/spinner/Spinner";
 import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization"
 import { ROLE_ADMINISTRATOR, ROLE_MANAGER } from "../../constants/roles";
 import { ISSUE_FORM } from "../../services/validation/form.validation";
-import { refreshErrors, addIssue, fetchIssuesTypes, fetchIssuesStatuses } from '../../redux/issues/issuesSlice';
+import { refreshErrors, addIssue, fetchIssuesTypes } from '../../redux/issues/issuesSlice';
 import { fetchAllProjectsList } from '../../redux/projects/projectsSlice';
 import { fetchAllDevelopers } from '../../redux/settings/users/usersSlice';
 import { transformForSelect } from "../../services/helpers/issueStatus";
@@ -31,7 +31,7 @@ const AddIssue = () => {
     const { roles } = useSelector(state => state.auth);
     const { allProjects } = useSelector(state => state.projects);
     const { allDevelopers } = useSelector(state => state.users);
-    const { errors, isSubmitting, issuesTypes, issuesStatuses } = useSelector(state => state.issues);
+    const { errors, isSubmitting, issuesTypes } = useSelector(state => state.issues);
     const canWriteIssue = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
     const isAdministrator = hasRole(roles, ROLE_ADMINISTRATOR);
     const [allIssueStatuses, setIssueStatuses] = useState([]);
@@ -49,7 +49,6 @@ const AddIssue = () => {
     useEffect(() => {
         dispatch(fetchAllProjectsList());
         dispatch(fetchIssuesTypes());
-        dispatch(fetchIssuesStatuses());
         dispatch(fetchAllDevelopers());
     }, []);
 
@@ -61,12 +60,6 @@ const AddIssue = () => {
             dispatch(refreshErrors());
         }
     }, [errors, dispatch]);
-
-    useEffect(() => {
-        if (issuesStatuses) {
-            setIssueStatuses(transformForSelect(issuesStatuses));
-        }
-    }, [issuesStatuses]);
 
     return (
         <CRow>
@@ -140,16 +133,6 @@ const AddIssue = () => {
                             errors={errors}
                             handleChange={handleChange}
                         />
-                        <DropdownSelect
-                            field="status"
-                            options={allIssueStatuses}
-                            placeholder="Status taska"
-                            label="Status"
-                            values={values}
-                            touched={touched}
-                            errors={errors}
-                            handleChange={handleChange}>
-                        </DropdownSelect>
                     </Form>
                     )}
                     </Formik>
