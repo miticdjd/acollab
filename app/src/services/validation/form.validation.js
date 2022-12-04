@@ -78,6 +78,27 @@ const nameValidation = {
         .required("Naziv je obavezno polje."),
 }
 
+const projectValidation = {
+    project_id: yup
+        .number()
+        .typeError("Projekat je obavezno polje.")
+        .required("Projekat je obavezno polje.")
+}
+
+const issueTypeValidation = {
+    issue_type_id: yup
+        .number()
+        .typeError("Tip taska je obavezno polje.")
+        .required("Tip taska je obavezno polje.")
+}
+
+const issueStatusType = {
+    status: yup
+        .string()
+        .typeError("Status je obavezno polje.")
+        .required("Status je obavezno polje.")
+}
+
 const codeValidation = {
     code: yup
         .string("Šifra je obavezno polje.")
@@ -134,4 +155,11 @@ export const USER_SETTINGS_FORM = yup.object({
 export const PROJECT_SETTINGS_FORM = yup.object({
     ...nameValidation,
     ...codeValidation
+});
+
+export const ISSUE_FORM = yup.object({
+    ...nameValidation,
+    ...projectValidation,
+    ...issueTypeValidation,
+    ...issueStatusType
 });

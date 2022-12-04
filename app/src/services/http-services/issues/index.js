@@ -9,6 +9,24 @@ export async function getIssuesWithPagination(perPage = 20, sort = 'name', direc
     .catch(err => err && err);
 }
 
+export async function getIssuesTypes() {
+  return apiClient
+      .get('/issues/types')
+      .then(response => {
+          return response;
+      })
+      .catch(err => err && err);
+}
+
+export async function getIssuesStatuses() {
+  return apiClient
+      .get('/issues/statuses')
+      .then(response => {
+          return response;
+      })
+      .catch(err => err && err);
+}
+
 export async function getIssues() {
   return apiClient
       .get('/issues/all')

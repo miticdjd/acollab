@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const issuesSlice = createSlice({
     name: 'issues',
     initialState: {
+        issuesStatuses: [],
+        issuesTypes: [],
         issuesList: [],
         allIssues: [],
         issuesMeta: {},
@@ -12,6 +14,8 @@ const issuesSlice = createSlice({
         errors: {}
     },
     reducers: {
+        fetchIssuesStatuses: () => {},
+        fetchIssuesTypes: () => {},
         fetchIssuesList: () => {},
         fetchAllIssuesList: () => {},
         addIssue: () => {},
@@ -23,6 +27,8 @@ const issuesSlice = createSlice({
 })
 
 export const { 
+    fetchIssuesStatuses,
+    fetchIssuesTypes,
     fetchIssuesList,
     fetchAllIssuesList,
     addIssue,

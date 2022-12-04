@@ -27,6 +27,11 @@ const IssuesList = () => {
     const [itemForDelete, setItemForDelete] = useState(null);
     const [theadData, setTheadData] = useState([
         {
+            title: "Code",
+            key: 'code',
+            sort: ''
+        },
+        {
             title: "Naziv",
             key: 'name',
             sort: 'asc'

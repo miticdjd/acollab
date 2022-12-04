@@ -102,6 +102,7 @@ class User extends Authenticatable
     {
         $data =  parent::toArray();
         $data['avatar'] = $this->getAvatar();
+        $data['name'] = $this->first_name . ' ' . $this->last_name;
 
         return $data;
     }

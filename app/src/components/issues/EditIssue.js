@@ -15,60 +15,52 @@ import {
 
 import InputText from "../common/form/InputText";
 import InputTextarea from "../common/form/InputTextarea";
+import DropdownSelect from "../common/form/DropdownSelect";
 import Spinner from "../common/spinner/Spinner";
 import FormContentLoader from "../common/form/FormContentLoader";
-import { getSingleProject } from "../../services/http-services/projects";
-import { fetchAllDevelopers, fetchAllManagers } from '../../redux/settings/users/usersSlice';
+import { getSingleIssue } from "../../services/http-services/issues";
 import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization"
 import { ROLE_ADMINISTRATOR, ROLE_MANAGER } from "../../constants/roles";
-import { PROJECT_SETTINGS_FORM } from "../../services/validation/form.validation";
-import { refreshErrors, editProject } from '../../redux/projects/projectsSlice';
-import DropdownMultiSelect from "../common/form/DropdownMultiSelect";
+import { ISSUE_FORM } from "../../services/validation/form.validation";
+import { refreshErrors, editIssue, fetchIssuesTypes, fetchIssuesStatuses } from '../../redux/issues/issuesSlice';
+import { fetchAllProjectsList } from '../../redux/projects/projectsSlice';
+import { fetchAllDevelopers } from '../../redux/settings/users/usersSlice';
+import { transformForSelect } from "../../services/helpers/issueStatus";
 
-const EditUser = () => {
+const EditIssue = () => {
     const { id } = useParams();
-    const editProjectForm = useRef();
+    const editIssueForm = useRef();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [innerState, setInnerState] = useState({
-        name: '',
-        code: '',
-        description: '',
-        managers: [],
-        developers: [],
-        managerOptions: [],
-        selectedManagers: [],
-        developerOptions: [],
-        selectedDevelopers: []
+        project_id: null,
+        issue_type_id: null,
+        user_id: null,
+        name: null,
+        description: null,
+        status: null
     });
     const [loadingData, setLoadingData] = useState(false);
     const { roles } = useSelector(state => state.auth);
-    const { allManagers, allDevelopers } = useSelector(state => state.users);
-    const { errors, isSubmitting } = useSelector(state => state.projects);
-    const canWriteProject = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
+    const { allProjects } = useSelector(state => state.projects);
+    const { allDevelopers } = useSelector(state => state.users);
+    const { errors, isSubmitting, issuesTypes, issuesStatuses } = useSelector(state => state.issues);
+    const canWriteIssue = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
     const isAdministrator = hasRole(roles, ROLE_ADMINISTRATOR);
+    const [allIssueStatuses, setIssueStatuses] = useState([]);
 
-    const getProject = async (projectId) => {
+    const getIssue = async (issueId) => {
         setLoadingData(true);
-        const response = await getSingleProject(projectId);
+        const response = await getSingleIssue(issueId);
         if (response && response.status === 200) {
-            const managerIds = response.data.data.managers.map(manager => manager.id);
-            const selectedManagers = response.data.data.managers.map(manager => {
-                return {value: manager.id, label: `${manager.first_name} ${manager.last_name}`};
-            });
-            const developerIds = response.data.data.developers.map(developer => developer.id);
-            const selectedDevelopers = response.data.data.developers.map(developer => {
-                return {value: developer.id, label: `${developer.first_name} ${developer.last_name}`};
-            });
             setInnerState(prevState => {
                 const updatedValues = {
+                    project_id: response.data.data.project_id,
+                    issue_type_id: response.data.data.issue_type_id,
+                    user_id: response.data.data.user_id,
                     name: response.data.data.name,
-                    code: response.data.data.code,
                     description: response.data.data.description,
-                    managers: managerIds,
-                    developers: developerIds,
-                    selectedManagers,
-                    selectedDevelopers
+                    status: response.data.data.status
                 };
                 return {...prevState, ...updatedValues};
             });
@@ -76,117 +68,95 @@ const EditUser = () => {
         }
     }
 
-    const handleEditProjectSave = () => editProjectForm.current.submitForm();
-    const handleEditProjectFormSubmit = values => {
-        dispatch(editProject({id, reqBody: values}));
+    const handleEditIssueSave = () => editIssueForm.current.submitForm();
+    const handleEditIssueFormSubmit = values => {
+        dispatch(editIssue({id, reqBody: values}));
     }
 
-    const handleCancel = () => navigate("/projects");
+    const handleCancel = () => navigate("/issues");
 
     useEffect(() => {
-        dispatch(fetchAllManagers());
+        dispatch(fetchAllProjectsList());
+        dispatch(fetchIssuesTypes());
+        dispatch(fetchIssuesStatuses());
         dispatch(fetchAllDevelopers());
-        getProject(id);
+        getIssue(id);
     }, [id]);
 
     useEffect(() => {
         if (errors && Object.keys(errors).length > 0) {
-            editProjectForm.current.setSubmitting(false);
-            editProjectForm.current.setErrors(errors);
+            editIssueForm.current.setSubmitting(false);
+            editIssueForm.current.setErrors(errors);
     
             dispatch(refreshErrors());
         }
     }, [errors, dispatch]);
 
     useEffect(() => {
-        const managersFormatedForOptionList = allManagers.map(manager => {
-            return {value: manager.id, label: `${manager.first_name} ${manager.last_name}`};
-        });
-        setInnerState(prevState => {
-            const updatedValues = {managerOptions: managersFormatedForOptionList};
-            return {...prevState, ...updatedValues};
-        });
-    }, [allManagers]);
-
-    useEffect(() => {
-        const developersFormatedForOptionList = allDevelopers.map(developer => {
-            return {value: developer.id, label: `${developer.first_name} ${developer.last_name}`};
-        });
-        setInnerState(prevState => {
-            const updatedValues = {developerOptions: developersFormatedForOptionList};
-            return {...prevState, ...updatedValues};
-        });
-    }, [allDevelopers]);
-
-    const handleAddOption = (data, formField, innerStateKey) => {
-        const newSelectedOptionsState = [...innerState[innerStateKey], data];
-        setInnerState(prevState => {
-            let updatedValues = {};
-            updatedValues[innerStateKey] = newSelectedOptionsState;
-            return {...prevState, ...updatedValues};
-        });
-        editProjectForm.current.setFieldValue(formField, [...editProjectForm.current.values[formField], data.value])
-    };
-    
-    const handleRemoveOption = (data, formField, innerStateKey) => {
-        const newSelectedOptionsState = innerState[innerStateKey].filter(option => option.value !== data.value);
-        const newOptionsIds = editProjectForm.current.values[formField].filter(optionId => optionId !== data.value);
-        editProjectForm.current.setFieldValue(formField, [...newOptionsIds])
-
-
-        setInnerState(prevState => {
-            let updatedValues = {};
-            updatedValues[innerStateKey] = newSelectedOptionsState;
-            return {...prevState, ...updatedValues};
-        });
-    };
-    
-    const handleClearOptions = (formField, innerStateKey) => {
-        setInnerState(prevState => {
-            let  updatedValues = {};
-            updatedValues[innerStateKey] = [];
-            return {...prevState, ...updatedValues};
-        });
-        editProjectForm.current.setFieldValue(formField, [])
-    };
+        if (issuesStatuses) {
+            setIssueStatuses(transformForSelect(issuesStatuses));
+        }
+    }, [issuesStatuses]);
 
     return (
         <CRow>
             <CCol>
                 <CCard>
                     <CCardHeader className="bg-white">
-                        Promeni projekat
+                        Promeni task
                     </CCardHeader>
                     {loadingData && <FormContentLoader rows={10}/>}
                     {!loadingData && <CCardBody className='mb-100'>
                         <Formik
-                            innerRef={editProjectForm}
-                            validationSchema={PROJECT_SETTINGS_FORM}
-                            onSubmit={handleEditProjectFormSubmit}
+                            innerRef={editIssueForm}
+                            validationSchema={ISSUE_FORM}
+                            onSubmit={handleEditIssueFormSubmit}
                             enableReinitialize={true}
                             initialValues={{
+                                project_id: innerState.project_id,
+                                issue_type_id: innerState.issue_type_id,
+                                user_id: innerState.user_id,
                                 name: innerState.name,
-                                code: innerState.code,
                                 description: innerState.description,
-                                managers: innerState.managers,
-                                developers: innerState.developers,
+                                status: innerState.status
                             }}
                         >
                         {({ handleSubmit, touched, errors, values, handleChange }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                             <InputText
-                                field="name"
-                                placeholder="Molimo Vas da unesete naziv projekta"
-                                label="Naziv"
+                              <DropdownSelect
+                                field="project_id"
+                                options={allProjects}
+                                placeholder="Molimo Vas da izaberete projekat"
+                                label="Projekat"
                                 values={values}
                                 touched={touched}
                                 errors={errors}
-                                handleChange={handleChange}
-                            />
+                                handleChange={handleChange}>
+                            </DropdownSelect>
+                            <DropdownSelect
+                                field="issue_type_id"
+                                options={issuesTypes}
+                                placeholder="Molimo Vas da izaberete tip taska"
+                                label="Tip taska"
+                                values={values}
+                                touched={touched}
+                                errors={errors}
+                                handleChange={handleChange}>
+                            </DropdownSelect>
+                            <DropdownSelect
+                                field="user_id"
+                                options={allDevelopers}
+                                placeholder="Dodelite task developeru"
+                                label="Dodelite task"
+                                values={values}
+                                touched={touched}
+                                errors={errors}
+                                handleChange={handleChange}>
+                            </DropdownSelect>
                             <InputText
-                                field="code"
-                                placeholder="Molimo Vas da unesete šifru projekta"
-                                label="Šifra"
+                                field="name"
+                                placeholder="Molimo Vas da unesete naziv taska"
+                                label="Naziv"
                                 values={values}
                                 touched={touched}
                                 errors={errors}
@@ -194,77 +164,31 @@ const EditUser = () => {
                             />
                             <InputTextarea
                                 field="description"
-                                placeholder="Molimo Vas da unesete opis projekta"
+                                placeholder="Molimo Vas da unesete opis taska"
                                 label="Opis"
                                 values={values}
                                 touched={touched}
                                 errors={errors}
                                 handleChange={handleChange}
                             />
-                            { allManagers?.length > 0 && isAdministrator && 
-                                <DropdownMultiSelect
-                                    classes="ms-1"
-                                    field="departments"
-                                    options={innerState.managerOptions}
-                                    placeholder="Izaberite manadžere projekta"
-                                    label="Manadžeri"
-                                    value={innerState.selectedManagers}
-                                    touched={touched}
-                                    errors={errors}
-                                    multiple={true}
-                                    handleChange={(value, action) => {
-                                        if (action.action === 'select-option') {
-                                            handleAddOption(action.option, 'managers', 'selectedManagers');
-                                        } else if (action.action === 'remove-value') {
-                                            handleRemoveOption(action.removedValue, 'managers', 'selectedManagers');
-                                        } else if (action.action === 'clear') {
-                                            handleClearOptions('managers', 'selectedManagers');
-                                        }
-                                    }}>
-                                </DropdownMultiSelect>
-                            }
-                            {
-                                !isAdministrator && (
-                                    <CRow className="mb-3">
-                                        <CCol md="2">
-                                            <CFormLabel className="is-label-text" htmlFor="managers">Manadžeri</CFormLabel>
-                                        </CCol>
-                                        <CCol xs="12" md="10">
-                                            {innerState.selectedManagers.map(manager => manager.label).join(', ')}
-                                        </CCol>
-                                    </CRow>
-                                )
-                            }
-                            { allDevelopers?.length > 0 && 
-                                <DropdownMultiSelect
-                                    classes="ms-1"
-                                    field="departments"
-                                    options={innerState.developerOptions}
-                                    placeholder="Izaberite programere koji rade na projektu"
-                                    label="Programeri"
-                                    value={innerState.selectedDevelopers}
-                                    touched={touched}
-                                    errors={errors}
-                                    multiple={true}
-                                    handleChange={(value, action) => {
-                                        if (action.action === 'select-option') {
-                                            handleAddOption(action.option, 'developers', 'selectedDevelopers');
-                                        } else if (action.action === 'remove-value') {
-                                            handleRemoveOption(action.removedValue, 'developers', 'selectedDevelopers');
-                                        } else if (action.action === 'clear') {
-                                            handleClearOptions('developers', 'selectedDevelopers');
-                                        }
-                                    }}>
-                                </DropdownMultiSelect>
-                            }
-                        </Form>
-                        )}
+                            <DropdownSelect
+                                field="status"
+                                options={allIssueStatuses}
+                                placeholder="Status taska"
+                                label="Status"
+                                values={values}
+                                touched={touched}
+                                errors={errors}
+                                handleChange={handleChange}>
+                            </DropdownSelect>
+                            </Form>
+                            )}
                         </Formik>
                     </CCardBody>}
 
-                    {(!loadingData && canWriteProject) && (
+                    {(!loadingData && canWriteIssue) && (
                         <CCardFooter className="bg-white">
-                            <CButton type="button" color="primary" className="is-btn me-3" onClick={handleEditProjectSave} disabled={isSubmitting}>{isSubmitting ? <Spinner smallSize={true}/> :  '' }Sačuvaj</CButton>
+                            <CButton type="button" color="primary" className="is-btn me-3" onClick={handleEditIssueSave} disabled={isSubmitting}>{isSubmitting ? <Spinner smallSize={true}/> :  '' }Sačuvaj</CButton>
                             <CButton type="reset" color="danger" className="is-btn" onClick={handleCancel}>Odustani</CButton>
                         </CCardFooter>
                     )}
@@ -274,4 +198,4 @@ const EditUser = () => {
     )
 }
 
-export default EditUser;
+export default EditIssue;

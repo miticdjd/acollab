@@ -8,6 +8,8 @@ import {
     addIssue,
     editIssue,
     deleteIssue,
+    fetchIssuesTypes,
+    fetchIssuesStatuses,
 } from './issuesSlice';
 import { toast } from 'react-toastify';
 import { push } from "redux-first-history";
@@ -69,6 +71,32 @@ export function* getAllIssues() {
       loadingList: false,
     },
   })
+}
+
+export function* getAllIssuesTypes() {
+  const response = yield call(issuesService.getIssuesTypes);
+
+  if (response && response.status === 200) {
+    yield put({
+      type: setIssuesData.type,
+      payload: {
+        issuesTypes: response.data.data,
+      },
+    })
+  }
+}
+
+export function* getAllIssuesStatuses() {
+  const response = yield call(issuesService.getIssuesStatuses);
+
+  if (response && response.status === 200) {
+    yield put({
+      type: setIssuesData.type,
+      payload: {
+        issuesStatuses: response.data.data,
+      },
+    })
+  }
 }
 
 export function* issueAdd({ payload }) {
@@ -174,6 +202,8 @@ export function* issuesRefreshError() {
 
 export default function* rootSaga() {
   yield all([
+    takeEvery(fetchIssuesStatuses.type, getAllIssuesStatuses),
+    takeEvery(fetchIssuesTypes.type, getAllIssuesTypes),
     takeEvery(fetchIssuesList.type, getIssuesListWithPagination),
     takeEvery(fetchAllIssuesList.type, getAllIssues),
     takeEvery(addIssue.type, issueAdd),
