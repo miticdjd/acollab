@@ -68,6 +68,11 @@ class Project
             return $this->projectRepository->getAllPaginatedForDeveloper($user->id, $column, $direction, $perPage);
         }
 
+        if ($user->hasRole(Role::ROLE_MANAGER)) {
+
+            return $this->projectRepository->getAllPaginatedForManager($user->id, $column, $direction, $perPage);
+        }
+
         return $this->projectRepository->getAllPaginated($column, $direction, $perPage);
     }
 
@@ -79,6 +84,17 @@ class Project
     public function getAll(): Collection
     {
         $this->authorize('read', ProjectModel::class);
+
+        $user = Auth::user();
+        if ($user->hasRole(Role::ROLE_DEVELOPER)) {
+
+            return $this->projectRepository->getAllForDeveloper($user->id);
+        }
+
+        if ($user->hasRole(Role::ROLE_MANAGER)) {
+
+            return $this->projectRepository->getAllForManager($user->id);
+        }
 
         return $this->projectRepository->getAll();
     }

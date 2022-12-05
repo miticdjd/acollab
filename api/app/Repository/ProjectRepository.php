@@ -38,12 +38,55 @@ class ProjectRepository
     }
 
     /**
+     * Get all paginated for manager
+     *
+     * @param integer $userId
+     * @param string $column
+     * @param string $direction
+     * @param integer $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginatedForManager(int $userId, string $column, string $direction, int $perPage): LengthAwarePaginator
+    {
+        return Project::whereHas('managers', function(Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->orderBy($column, $direction)->paginate($perPage);
+    }
+
+    /**
      * Get all projects
      * @return Collection
      */
     public function getAll(): Collection
     {
         return Project::all();
+    }
+
+    /**
+     * Get all for developer
+     *
+     * @param integer $userId
+     * @return Collection
+     */
+    public function getAllForDeveloper(int $userId): Collection
+    {
+        return Project::whereHas('developers', function(Builder $query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
+    }
+
+    /**
+     * Get all for manager
+     *
+     * @param integer $userId
+     * @return Collection
+     */
+    public function getAllForManager(int $userId): Collection
+    {
+        return Project::whereHas('managers', function(Builder $query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
     }
 
     /**
