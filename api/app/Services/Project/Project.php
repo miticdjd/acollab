@@ -100,6 +100,18 @@ class Project
     }
 
     /**
+     * Get only ids of projects assigned to user
+     *
+     * @return array
+     */
+    public function getIds(): array
+    {
+        $projects = $this->getAll();
+
+        return $projects->pluck('id')->toArray();
+    }
+
+    /**
      * Add new project
      * @param array $fields
      * @return ProjectModel

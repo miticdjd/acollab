@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\Audit\Event;
 use App\Services\Audit\EventTypes;
+use App\Services\Project\Project;
 use Illuminate\Database\Eloquent\Collection;
 
 class Issue
@@ -36,6 +37,13 @@ class Issue
     private Event $eventService;
 
     /**
+     * Project
+     *
+     * @var Project
+     */
+    private Project $project;
+
+    /**
      * Columns that are sortable
      * @var array
      */
@@ -46,9 +54,10 @@ class Issue
      * @param IssueRepository $issueRepository
      * @param Event $eventService
      */
-    public function __construct(IssueRepository $issueRepository, Attachment $attachment, Event $eventService)
+    public function __construct(IssueRepository $issueRepository, Project $project, Attachment $attachment, Event $eventService)
     {
         $this->issueRepository = $issueRepository;
+        $this->project = $project;
         $this->attachment = $attachment;
         $this->eventService = $eventService;
     }
@@ -67,7 +76,9 @@ class Issue
         $direction = $sort->getDirection();
         $perPage = $perPage->getPerPage();
 
-        return $this->issueRepository->getAllPaginated($column, $direction, $perPage);
+        $projectIds = $this->project->getIds();
+
+        return $this->issueRepository->getAllPaginatedByProjects($projectIds, $column, $direction, $perPage);
     }
 
     /**
@@ -98,7 +109,9 @@ class Issue
     {
         $this->authorize('read', IssueModel::class);
 
-        return $this->issueRepository->getAll();
+        $projectIds = $this->project->getIds();
+
+        return $this->issueRepository->getAllByProjects($projectIds);
     }
 
     /**

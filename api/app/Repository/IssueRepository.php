@@ -20,6 +20,20 @@ class IssueRepository
     }
 
     /**
+     * Get all paginated by projects
+     *
+     * @param array $projectIds
+     * @param string $column
+     * @param string $direction
+     * @param integer $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginatedByProjects(array $projectIds, string $column, string $direction, int $perPage): LengthAwarePaginator
+    {
+        return Issue::whereIn('project_id', $projectIds)->orderBy($column, $direction)->paginate($perPage);
+    }
+
+    /**
      * Filter all queries
      *
      * @param integer $perPage
@@ -76,6 +90,18 @@ class IssueRepository
     public function getAll(): Collection
     {
         return Issue::all();
+    }
+
+    /**
+     * Get all by projects
+     *
+     * @param array $projectIds
+     * @return Collection
+     */
+    public function getAllByProjects(array $projectIds): Collection
+    {
+
+        return Issue::whereIn('project_id', $projectIds)->get();
     }
 
     /**
