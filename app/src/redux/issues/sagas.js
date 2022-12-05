@@ -10,6 +10,7 @@ import {
     deleteIssue,
     fetchIssuesTypes,
     fetchIssuesStatuses,
+    deleteAttachment,
 } from './issuesSlice';
 import { toast } from 'react-toastify';
 import { push } from "redux-first-history";
@@ -194,6 +195,21 @@ export function* issueDelete({ payload }) {
   }
 }
 
+export function* attachmentDelete({ payload }) {
+  const { id } = payload;
+
+  const response = yield call(issuesService.deleteAttachment, id);
+
+  if (response && response.status >= 200 && response.status <= 201) {
+    const { data } = response;
+    toast.success(data.message);
+  }
+
+  if (response && response.status >= 400 && response.status <= 422) {
+    toast.error(response.data.message);
+  }
+}
+
 export function* issuesRefreshError() {
     yield put({
         type: setIssuesData.type,
@@ -212,6 +228,7 @@ export default function* rootSaga() {
     takeEvery(addIssue.type, issueAdd),
     takeEvery(editIssue.type, issueEdit),
     takeEvery(deleteIssue.type, issueDelete),
+    takeEvery(deleteAttachment.type, attachmentDelete),
     takeEvery(refreshErrors.type, issuesRefreshError),
   ])
 }

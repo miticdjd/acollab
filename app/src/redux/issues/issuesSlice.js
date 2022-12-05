@@ -22,6 +22,7 @@ const issuesSlice = createSlice({
         editIssue: () => {},
         deleteIssue: () => {},
         refreshErrors: () => {},
+        deleteAttachment: () => {},
         setIssuesData: (state, action) => ({...state, ...action.payload})
     }
 })
@@ -34,6 +35,7 @@ export const {
     addIssue,
     editIssue, 
     deleteIssue,
+    deleteAttachment,
     setIssuesData,
     refreshErrors
 } = issuesSlice.actions;

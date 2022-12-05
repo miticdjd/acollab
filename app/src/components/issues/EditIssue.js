@@ -9,8 +9,7 @@ import {
     CCardFooter,
     CCardHeader,
     CCol,
-    CRow,
-    CFormLabel
+    CRow
 } from '@coreui/react';
 
 import InputText from "../common/form/InputText";
@@ -22,10 +21,12 @@ import { getSingleIssue } from "../../services/http-services/issues";
 import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization"
 import { ROLE_ADMINISTRATOR, ROLE_MANAGER } from "../../constants/roles";
 import { ISSUE_FORM } from "../../services/validation/form.validation";
-import { refreshErrors, editIssue, fetchIssuesTypes, fetchIssuesStatuses } from '../../redux/issues/issuesSlice';
+import { refreshErrors, editIssue, fetchIssuesTypes, fetchIssuesStatuses, deleteAttachment } from '../../redux/issues/issuesSlice';
 import { fetchAllProjectsList } from '../../redux/projects/projectsSlice';
 import { fetchAllDevelopers } from '../../redux/settings/users/usersSlice';
 import { transformForSelect } from "../../services/helpers/issueStatus";
+import Attachments from "../common/form/Attachments";
+import { convertBase64 } from "../../services/helpers/media/files";
 
 const EditIssue = () => {
     const { id } = useParams();
@@ -38,7 +39,8 @@ const EditIssue = () => {
         user_id: null,
         name: null,
         description: null,
-        status: null
+        status: null,
+        attachments: []
     });
     const [loadingData, setLoadingData] = useState(false);
     const { roles } = useSelector(state => state.auth);
@@ -60,7 +62,8 @@ const EditIssue = () => {
                     user_id: response.data.data.user_id,
                     name: response.data.data.name,
                     description: response.data.data.description,
-                    status: response.data.data.status
+                    status: response.data.data.status,
+                    attachments: response.data.data.attachments
                 };
                 return {...prevState, ...updatedValues};
             });
@@ -70,6 +73,7 @@ const EditIssue = () => {
 
     const handleEditIssueSave = () => editIssueForm.current.submitForm();
     const handleEditIssueFormSubmit = values => {
+        values['attachments'] = innerState.attachments.filter(a => a.id === undefined);
         dispatch(editIssue({id, reqBody: values}));
     }
 
@@ -97,6 +101,35 @@ const EditIssue = () => {
             setIssueStatuses(transformForSelect(issuesStatuses));
         }
     }, [issuesStatuses]);
+
+    const handleNewAttachments = async files => {
+        let filesForUpload = [];
+
+        for (let i = 0; i < files.length; i++) {
+            let file = files.item(i);
+            filesForUpload[i] = {
+                name: file.name,
+                file: await convertBase64(file),
+                size: file.size,
+                type: file.type,
+                lastModified: file.lastModified
+            };
+        }
+    
+        setInnerState({...innerState, attachments: innerState.attachments.concat(filesForUpload)});
+      };
+
+    const handleRemoveAttachment = file => {
+        if (file.id) {
+            dispatch(deleteAttachment({ id: file.id }));
+        }
+
+        const filtered = innerState.attachments.filter(
+            attachment => file.id === undefined ? (attachment.lastModified !== file.lastModified) : (attachment.id !== file.id)
+        );
+
+        setInnerState({...innerState, attachments: filtered});
+    };
 
     return (
         <CRow>
@@ -181,6 +214,19 @@ const EditIssue = () => {
                                 errors={errors}
                                 handleChange={handleChange}>
                             </DropdownSelect>
+                            <Attachments
+                                files={innerState.attachments}
+                                type="file"
+                                field="attachmentsForUpload"
+                                errors={errors}
+                                touched={touched}
+                                onChange={handleNewAttachments}
+                                onRemove={handleRemoveAttachment}
+                                placeholder="Dodaj prilog"
+                                label="Prilozi"
+                                multiple={true}
+                                required={false}
+                                />
                             </Form>
                             )}
                         </Formik>

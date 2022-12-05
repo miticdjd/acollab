@@ -80,3 +80,12 @@ export async function deleteIssue(issueId) {
     })
     .catch(err => err && err);
 }
+
+export async function deleteAttachment(attachmentId) {
+  return apiClient
+    .delete(`/issues/attachments/${attachmentId}`)
+    .then(response => {
+      return response;
+    })
+    .catch(err => err && err);
+}

@@ -22,7 +22,8 @@ import { ISSUE_FORM } from "../../services/validation/form.validation";
 import { refreshErrors, addIssue, fetchIssuesTypes } from '../../redux/issues/issuesSlice';
 import { fetchAllProjectsList } from '../../redux/projects/projectsSlice';
 import { fetchAllDevelopers } from '../../redux/settings/users/usersSlice';
-import { transformForSelect } from "../../services/helpers/issueStatus";
+import Attachments from "../common/form/Attachments";
+import { convertBase64 } from "../../services/helpers/media/files";
 
 const AddIssue = () => {
     const addIssueForm = useRef();
@@ -34,13 +35,15 @@ const AddIssue = () => {
     const { errors, isSubmitting, issuesTypes } = useSelector(state => state.issues);
     const canWriteIssue = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
     const isAdministrator = hasRole(roles, ROLE_ADMINISTRATOR);
-    const [allIssueStatuses, setIssueStatuses] = useState([]);
+    const [attachmentsForUpload, setAttachmentsForUpload] = useState([]);
 
     const handleAddIssueSave = () => {
         addIssueForm.current.submitForm();
     }
     
     const handleAddIssueFormSubmit = (values) => {
+        values['attachments'] = attachmentsForUpload;
+
         dispatch(addIssue({reqBody : values}));
     }
 
@@ -60,6 +63,29 @@ const AddIssue = () => {
             dispatch(refreshErrors());
         }
     }, [errors, dispatch]);
+
+    const handleNewAttachments = async files => {
+        let filesForUpload = [];
+
+        for (let i = 0; i < files.length; i++) {
+            let file = files.item(i);
+            filesForUpload[i] = {
+                name: file.name,
+                file: await convertBase64(file),
+                size: file.size,
+                type: file.type,
+                lastModified: file.lastModified
+            };
+        }
+    
+        setAttachmentsForUpload(attachmentsForUpload.concat(filesForUpload));
+      };
+
+    const handleRemoveAttachment = file => {
+        const filtered = attachmentsForUpload.filter(attachment => attachment.lastModified !== file.lastModified);
+
+        setAttachmentsForUpload(filtered);
+    };
 
     return (
         <CRow>
@@ -133,6 +159,19 @@ const AddIssue = () => {
                             errors={errors}
                             handleChange={handleChange}
                         />
+                        <Attachments
+                            files={attachmentsForUpload}
+                            type="file"
+                            field="attachmentsForUpload"
+                            errors={errors}
+                            touched={touched}
+                            onChange={handleNewAttachments}
+                            onRemove={handleRemoveAttachment}
+                            placeholder="Dodaj prilog"
+                            label="Prilozi"
+                            multiple={true}
+                            required={false}
+                            />
                     </Form>
                     )}
                     </Formik>
