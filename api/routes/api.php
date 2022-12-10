@@ -149,6 +149,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/issues/all', [IssueController::class, 'all'])
         ->name('issues.list.all');
 
+    Route::get('/issues/all/by/project/{project}', [IssueController::class, 'allByProject'])
+        ->name('issues.list.all.by.project');
+
     Route::get('/issues', [IssueController::class, 'index'])
         ->name('issues.list');
 

@@ -5,6 +5,7 @@ import {
     refreshErrors,
     fetchIssuesList,
     fetchAllIssuesList,
+    fetchAllIssuesByProject,
     addIssue,
     editIssue,
     deleteIssue,
@@ -75,6 +76,19 @@ export function* getAllIssues() {
       loadingList: false,
     },
   })
+}
+
+export function* getAllIssuesByProject({ payload }) {
+  const response = yield call(issuesService.getIssuesByProject, payload.project_id);
+
+  if (response && response.status === 200) {
+    yield put({
+      type: setIssuesData.type,
+      payload: {
+        allIssuesByProject: response.data.data,
+      },
+    })
+  }
 }
 
 export function* getAllIssuesTypes() {
@@ -225,6 +239,7 @@ export default function* rootSaga() {
     takeEvery(fetchIssuesTypes.type, getAllIssuesTypes),
     takeEvery(fetchIssuesList.type, getIssuesListWithPagination),
     takeEvery(fetchAllIssuesList.type, getAllIssues),
+    takeEvery(fetchAllIssuesByProject.type, getAllIssuesByProject),
     takeEvery(addIssue.type, issueAdd),
     takeEvery(editIssue.type, issueEdit),
     takeEvery(deleteIssue.type, issueDelete),

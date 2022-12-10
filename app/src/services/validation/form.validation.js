@@ -106,6 +106,24 @@ const codeValidation = {
         .length(3, "Šifra mora da bude 3 karaktera.")
 }
 
+const startValidation = {
+    start: yup
+        .string("Početak je obavezno polje.")
+        .required("Početak je obavezno polje.")
+}
+
+const endValidation = {
+    end: yup
+        .string("Kraj je obavezno polje.")
+        .required("Kraj je obavezno polje.")
+}
+
+const issuesValidation = {
+    issues: yup
+        .array()
+        .min(1, "Taskovi su obavezno polje.")
+        .required("Taskovi su obavezno polje.")
+};
 
 //auth forms validation
 export const LOGIN = yup.object({
@@ -162,4 +180,12 @@ export const ISSUE_FORM = yup.object({
     ...projectValidation,
     ...issueTypeValidation,
     ...issueStatusType
+});
+
+export const SPRINT_FORM = yup.object({
+    ...projectValidation,
+    ...nameValidation,
+    ...startValidation,
+    ...endValidation,
+    ...issuesValidation
 });

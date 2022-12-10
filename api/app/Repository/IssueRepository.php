@@ -105,6 +105,17 @@ class IssueRepository
     }
 
     /**
+     * Get issues by single project
+     *
+     * @param integer $projectId
+     * @return Collection
+     */
+    public function getAllByProject(int $projectId): Collection
+    {
+        return Issue::where('project_id', $projectId)->get();
+    }
+
+    /**
      * Create new issue
      * @param array $fields
      * @return Issue

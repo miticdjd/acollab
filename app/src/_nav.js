@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { faGears, faGauge, faClockRotateLeft, faFolder, faListCheck } from '@fortawesome/free-solid-svg-icons';
+import { faGears, faGauge, faClockRotateLeft, faFolder, faListCheck, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CNavGroup, CNavItem } from "@coreui/react";
@@ -32,6 +32,13 @@ const _nav = [
     name: "Taskovi",
     to: "/issues",
     icon: <FontAwesomeIcon className="nav-icon" icon={faListCheck} />,
+  },
+  {
+    component: CNavItem,
+    roles: [ROLE_ADMINISTRATOR, ROLE_MANAGER, ROLE_DEVELOPER],
+    name: "Sprintovi",
+    to: "/sprints",
+    icon: <FontAwesomeIcon className="nav-icon" icon={faBriefcase} />,
   },
   {
     component: CNavItem,

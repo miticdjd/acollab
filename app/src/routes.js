@@ -31,6 +31,11 @@ const IssuesList = React.lazy(() => import('./components/issues/IssuesList'))
 const AddIssue = React.lazy(() => import('./components/issues/AddIssue'))
 const EditIssue = React.lazy(() => import('./components/issues/EditIssue'))
 
+//import Sprints
+const SprintsList = React.lazy(() => import('./components/sprints/SprintsList'))
+const AddSprint = React.lazy(() => import('./components/sprints/AddSprint'))
+const EditSprint = React.lazy(() => import('./components/sprints/EditSprint'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -57,10 +62,15 @@ const routes = [
   { path: '/projects/add', name: 'Add project', element: AddProject, exact: true},
   { path: '/projects/edit/:id', name: 'Edit project', element: EditProject, exact: true},
 
-  //projects
+  //issues
   { path: '/issues', name: 'Issues', element: IssuesList, exact: true},
   { path: '/issues/add', name: 'Add issue', element: AddIssue, exact: true},
   { path: '/issues/edit/:id', name: 'Edit issue', element: EditIssue, exact: true},
+
+  //sprints
+  { path: '/sprints', name: 'Issues', element: SprintsList, exact: true},
+  { path: '/sprints/add', name: 'Add issue', element: AddSprint, exact: true},
+  { path: '/sprints/edit/:id', name: 'Edit issue', element: EditSprint, exact: true},
 ]
 
 export default routes

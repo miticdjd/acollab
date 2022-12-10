@@ -115,6 +115,19 @@ class Issue
     }
 
     /**
+     * Get all issue by single project
+     *
+     * @param integer $projectId
+     * @return Collection
+     */
+    public function getAllByProject(int $projectId): Collection
+    {
+        $this->authorize('read', IssueModel::class);
+
+        return $this->issueRepository->getAllByProject($projectId);
+    }
+
+    /**
      * Add new issue
      * @param array $fields
      * @return IssueModel

@@ -12,6 +12,7 @@ const DropdownMultiSelect = ({
   options = [],
   value,
   isLoading = false,
+  isDisabled = false,
   classes = ''
 }) => {
 
@@ -63,7 +64,7 @@ const DropdownMultiSelect = ({
             <Select className={`py-0 dropdown-text ${classes}`}
                 isMulti
                 isClearable
-                isDisabled={isLoading}
+                isDisabled={isDisabled || isLoading}
                 isLoading={isLoading}
                 onChange={handleChange}
                 options={options}

@@ -45,6 +45,15 @@ export async function getIssues() {
       .catch(err => err && err);
 }
 
+export async function getIssuesByProject(projectId) {
+  return apiClient
+      .get(`/issues/all/by/project/${projectId}`)
+      .then(response => {
+          return response;
+      })
+      .catch(err => err && err); 
+}
+
 export async function getSingleIssue(issueId) {
   return apiClient
     .get(`/issues/${issueId}`)

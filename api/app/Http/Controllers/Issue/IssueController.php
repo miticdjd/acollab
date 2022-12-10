@@ -13,6 +13,7 @@ use App\Http\Requests\Issue\EditStatusRequest;
 use App\Http\Requests\Issue\FilterRequest;
 use App\Services\Issue\Issue;
 use App\Models\Issue as IssueModel;
+use App\Models\Project;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\Sorting\Sort;
 use App\Services\Sorting\PerPage;
@@ -30,6 +31,21 @@ class IssueController extends Controller
     public function all(Issue $issue): JsonResponse
     {
         $issues = $issue->getAll();
+
+        return (new BasicResponse($issues))
+            ->response();
+    }
+
+    /**
+     * Get all projects by issue
+     *
+     * @param Project $project
+     * @param Issue $issue
+     * @return JsonResponse
+     */
+    public function allByProject(Project $project, Issue $issue): JsonResponse
+    {
+        $issues = $issue->getAllByProject($project->id);
 
         return (new BasicResponse($issues))
             ->response();
