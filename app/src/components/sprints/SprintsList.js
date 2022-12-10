@@ -21,7 +21,7 @@ const SprintsList = () => {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
-    const [activeSortData, setActiveSortData] = useState({key: 'name', sortDirection: 'asc'})
+    const [activeSortData, setActiveSortData] = useState({key: 'start', sortDirection: 'asc'})
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [itemForDelete, setItemForDelete] = useState(null);
     const [theadData, setTheadData] = useState([
@@ -34,12 +34,12 @@ const SprintsList = () => {
         {
             title: "Naziv",
             key: 'name',
-            sort: 'asc'
+            sort: ''
         },
         {
             title: "Početak",
             key: 'start',
-            sort: ''
+            sort: 'asc'
         },
         {
             title: "Kraj",
