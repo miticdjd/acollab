@@ -44,6 +44,13 @@ class Sprint extends Model
      */
     protected $appends = ['statistics'];
 
+    protected static function booted()
+    {
+        static::addGlobalScope(function ($query) {
+            $query->whereNull('finished_at');
+        });
+    }
+
     /**
      * Always load this relationships
      */

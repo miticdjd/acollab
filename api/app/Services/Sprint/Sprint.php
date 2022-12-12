@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\Audit\Event;
 use App\Services\Audit\EventTypes;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 class Sprint
@@ -120,6 +122,22 @@ class Sprint
             'original' => $original,
         ];
         $this->eventService->add($sprint->id, SprintModel::class, EventTypes::ENTITY_UPDATED, $data);
+
+        return $sprint;
+    }
+
+    /**
+     * Finish sprint
+     *
+     * @param SprintModel $sprint
+     * @return SprintModel
+     */
+    public function finish(SprintModel $sprint): SprintModel
+    {
+        $this->authorize('write', SprintModel::class);
+
+        $sprint->finished_at = Carbon::now();
+        $sprint->save();
 
         return $sprint;
     }

@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import ContentLoader from 'react-content-loader';
 
 const FormContentLoader = props => {
-    const { rows = 5 } = props;
-    const rowHeight = 60;
+    const { rows = 5, rowHeight = 60 } = props;
 
     return (
         <ContentLoader viewBox={`0 0 1500 ${rowHeight * rows}`} {...props}>

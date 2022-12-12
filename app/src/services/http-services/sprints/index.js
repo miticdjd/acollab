@@ -53,3 +53,12 @@ export async function deleteSprint(sprintId) {
     })
     .catch(err => err && err);
 }
+
+export async function finishSprint(sprintId) {
+  return apiClient
+    .put(`/sprints/finish/${sprintId}`)
+    .then(response => {
+      return response;
+    })
+    .catch(err => err && err);
+}

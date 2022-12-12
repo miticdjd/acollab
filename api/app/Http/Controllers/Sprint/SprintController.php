@@ -113,4 +113,20 @@ class SprintController extends Controller
             ->response()
             ->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    /**
+     * Finish sprint
+     *
+     * @param SprintModel $sprint
+     * @param Sprint $sprintService
+     * @return JsonResponse
+     */
+    public function finish(SprintModel $sprint, Sprint $sprintService): JsonResponse
+    {
+        $sprintService->finish($sprint);
+
+        return (new BasicResponse())
+                ->setMessage('Sprint je uspešno završen.')
+                ->response();
+    }
 }

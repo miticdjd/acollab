@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('objective');
             $table->date('start');
             $table->date('end');
+            $table->dateTime('finished_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

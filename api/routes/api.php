@@ -191,5 +191,8 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::delete('/sprints/{sprint}', [SprintController::class, 'remove'])
         ->name('sprints.remove');
+
+    Route::put('/sprints/finish/{sprint}', [SprintController::class, 'finish'])
+        ->name('sprints.finish');
 });
 

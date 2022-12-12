@@ -12,7 +12,7 @@ import {
 import Table from "../common/table/Table";
 import Pagination from "../common/pagination/Pagination";
 import ConfirmModal from "../common/modals/ConfirmModal";
-import { ROLE_ADMINISTRATOR, ROLE_MANAGER } from "../../constants/roles";
+import { ROLE_ADMINISTRATOR, ROLE_DEVELOPER, ROLE_MANAGER } from "../../constants/roles";
 import { hasRole, hasOneOfRoles } from "../../services/helpers/autorization";
 import { fetchSprintsList, deleteSprint } from "../../redux/sprints/sprintsSlice";
 import AddNewButton from "../common/button/AddNewButton";
@@ -61,6 +61,7 @@ const SprintsList = () => {
     const { sprintsList, sprintsMeta, loadingList } = useSelector(state => state.sprints);
 
     const canWriteSprint = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
+    const canViewSprint = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER, ROLE_DEVELOPER]);
     const isAdministrator = hasRole(roles, ROLE_ADMINISTRATOR);
 
     const handleColumnSort = (key, sortDirection) => {
@@ -104,7 +105,7 @@ const SprintsList = () => {
 
     useEffect(() => {
         return () => {
-            if (canWriteSprint) {
+            if (canViewSprint || canWriteSprint) {
                 setTheadData(prevState => {
                     return ([
                         ...prevState, 
@@ -114,13 +115,22 @@ const SprintsList = () => {
                             render: item => {
                                 return (
                                     <span className="d-inline-flex" style={{ textAlign: 'center' }}>
-                                        <Link 
-                                            to={`/sprints/edit/${item.id}`} 
-                                            className="btn btn-sm btn-outline-primary m-1 table-btn"
-                                        >
-                                            Promeni
-                                        </Link>
-                
+                                        {canViewSprint && (
+                                            <Link 
+                                                to={`/sprints/view/${item.id}`} 
+                                                className="btn btn-sm btn-outline-primary m-1 table-btn"
+                                            >
+                                                Pregled
+                                            </Link>
+                                        )}
+                                        {canWriteSprint && (
+                                            <Link 
+                                                to={`/sprints/edit/${item.id}`} 
+                                                className="btn btn-sm btn-outline-primary m-1 table-btn"
+                                            >
+                                                Promeni
+                                            </Link>
+                                        )}
                                         {isAdministrator && (
                                             <button
                                                 type="button"
