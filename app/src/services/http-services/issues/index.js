@@ -98,3 +98,12 @@ export async function deleteAttachment(attachmentId) {
     })
     .catch(err => err && err);
 }
+
+export async function updateStatus(issueId, status) {
+  return apiClient
+  .put(`/issues/${issueId}/status`, { status })
+  .then(response => {
+    return response
+  })
+  .catch(err => err && err);
+}

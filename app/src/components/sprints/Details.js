@@ -13,14 +13,18 @@ import {
 import Spinner from "../common/spinner/Spinner";
 import FormContentLoader from "../common/form/FormContentLoader";
 import { getSingleSprint, finishSprint } from "../../services/http-services/sprints";
+import { updateStatus } from "../../services/http-services/issues";
 import { getIssueStatusBg } from "../../services/helpers/badge";
 import Table from "../common/table/Table";
 import ConfirmModal from "../common/modals/ConfirmModal";
+import IssueModal from "../common/modals/IssueModal";
 
 const Details = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [showIssue, setShowIssue] = useState(false);
+    const [displayIssue, setDisplayIssue] = useState(null);
     const [innerState, setInnerState] = useState({
         project: {},
         name: '',
@@ -60,6 +64,17 @@ const Details = () => {
                 );
             }
         },
+        {
+            title: "Opcije",
+            key: 'options',
+            render: item => {
+                return (
+                    <span className="d-inline-flex" style={{ textAlign: 'center' }}>
+                        <button type="button" className="btn btn-sm btn-outline-primary m-1 table-btn" onClick={() => { setDisplayIssue(item); setShowIssue(true); }}>Pregled</button>
+                    </span>
+                );
+            }
+        }
     ]);
 
     const getSprint = async (sprintId) => {
@@ -77,7 +92,7 @@ const Details = () => {
                 };
                 return {...prevState, ...updatedValues};
             });
-            setTimeout(() => setLoadingData(false), 800);
+            setTimeout(() => setLoadingData(false), 400);
         }
     }
 
@@ -97,6 +112,24 @@ const Details = () => {
 
     const handleCancelingConfirmation = () => {
         setShowConfirmation(false);
+    }
+
+    const handleCancelingIssue = () => {
+        setShowIssue(false);
+        setDisplayIssue(null);
+    }
+
+    const handleChangeIssueStatus = (issue, newStatus) => {
+        updateStatus(issue.id, newStatus);
+        setShowIssue(false);
+        setDisplayIssue(null);
+        innerState.issues.map(i => {
+            if (i.id === issue.id) {
+                i.status = newStatus;
+            }
+
+            return i;
+        });
     }
 
     return (
@@ -158,6 +191,13 @@ const Details = () => {
                 onCancel={handleCancelingConfirmation}
                 onConfirm={handleConfirmingConfirmation}
             ></ConfirmModal>
+
+            <IssueModal
+                showModal={showIssue && displayIssue}
+                issue={displayIssue}
+                onCancel={handleCancelingIssue}
+                onConfirm={handleChangeIssueStatus}
+            ></IssueModal>
         </>
     )
 }

@@ -22,3 +22,38 @@ export function getIssueStatusBg(status) {
 
     return 'bg-success';
 };
+
+export function getIssueStatusColor(status) {
+
+    if (status === 'open') {
+        
+        return 'primary';
+    }
+
+    if (status === 'in_progress') {
+
+        return 'secondary';
+    }
+
+    if (status === 'qa_ready') {
+
+        return 'warning';
+    }
+
+    if (status === 'removed') {
+
+        return 'danger';
+    }
+
+    return 'success';
+};
+
+export function getAllStatuses() {
+
+    return [
+        'open',
+        'in_progress',
+        'qa_ready',
+        'done'
+    ];
+}
