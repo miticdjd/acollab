@@ -76,6 +76,16 @@ class Sprint
     }
 
     /**
+     * Count all sprints
+     *
+     * @return integer
+     */
+    public function countAll(): int
+    {
+        return $this->sprintRepository->countAll();
+    }
+
+    /**
      * Add new sprint
      * @param array $fields
      * @return SprintModel

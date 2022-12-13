@@ -21,3 +21,12 @@ export async function updateGenaralSettings(data) {
     })
     .catch(err => err && err);
 }
+
+export async function fetchStatistics() {
+  return apiClient
+    .get('/statistics')
+    .then(response => {
+      return response;
+    })
+    .catch(err => err && err);
+}

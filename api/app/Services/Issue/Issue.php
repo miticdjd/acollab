@@ -115,6 +115,18 @@ class Issue
     }
 
     /**
+     * Count all issues
+     *
+     * @return int
+     */
+    public function countAll(): int
+    {
+        $projectIds = $this->project->getIds();
+
+        return $this->issueRepository->countAllByProjects($projectIds);
+    }
+
+    /**
      * Get all issue by single project
      *
      * @param integer $projectId

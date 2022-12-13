@@ -105,6 +105,18 @@ class IssueRepository
     }
 
     /**
+     * Count all by projects
+     *
+     * @param array $projectIds
+     * @return int
+     */
+    public function countAllByProjects(array $projectIds): int
+    {
+
+        return Issue::whereIn('project_id', $projectIds)->count();
+    }
+
+    /**
      * Get issues by single project
      *
      * @param integer $projectId

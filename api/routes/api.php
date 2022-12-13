@@ -36,6 +36,8 @@ Route::post('/auth/password/reset', [PasswordController::class, 'reset'])->name(
 
 /** Routes for logged in users */
 Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('/statistics', [DefaultController::class, 'statistics'])->name('statistics');
+
     /** Auth actions */
     Route::get('/auth/logout', [LogoutController::class, 'logout'])->name('auth.logout');
     Route::get('/auth/who', [ProfileController::class, 'who'])->name('auth.who');

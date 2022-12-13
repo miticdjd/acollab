@@ -100,6 +100,27 @@ class Project
     }
 
     /**
+     * Count all projects
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        $user = Auth::user();
+        if ($user->hasRole(Role::ROLE_DEVELOPER)) {
+
+            return $this->projectRepository->countAllForDeveloper($user->id);
+        }
+
+        if ($user->hasRole(Role::ROLE_MANAGER)) {
+
+            return $this->projectRepository->countAllForManager($user->id);
+        }
+
+        return $this->projectRepository->countAll();
+    }
+
+    /**
      * Get only ids of projects assigned to user
      *
      * @return array

@@ -64,6 +64,16 @@ class ProjectRepository
     }
 
     /**
+     * Count all projects
+     *
+     * @return int
+     */
+    public function countAll(): int
+    {
+        return Project::count();
+    }
+
+    /**
      * Get all for developer
      *
      * @param integer $userId
@@ -77,6 +87,19 @@ class ProjectRepository
     }
 
     /**
+     * Count all for developer
+     *
+     * @param integer $userId
+     * @return integer
+     */
+    public function countAllForDeveloper(int $userId): int
+    {
+        return Project::whereHas('developers', function(Builder $query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+    }
+
+    /**
      * Get all for manager
      *
      * @param integer $userId
@@ -87,6 +110,19 @@ class ProjectRepository
         return Project::whereHas('managers', function(Builder $query) use ($userId) {
             $query->where('user_id', $userId);
         })->get();
+    }
+
+    /**
+     * Count all for manager
+     *
+     * @param integer $userId
+     * @return Collection
+     */
+    public function countAllForManager(int $userId): Collection
+    {
+        return Project::whereHas('managers', function(Builder $query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
     }
 
     /**

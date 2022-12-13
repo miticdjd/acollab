@@ -1615,5 +1615,35 @@
       "bearer": "{{authToken}}"
     },
     "tests": []
+  },
+  {
+    "_id": "fb7a6850-eb91-48ad-9f32-719f22b49f95",
+    "colId": "dbbba54e-c61d-45d2-8695-72f6dd1c291a",
+    "containerId": "",
+    "name": "/statistics",
+    "url": "http://localhost:8000/statistics",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-12-13T12:08:23.040Z",
+    "modified": "2022-12-13T12:09:19.547Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{authToken}}"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
   }
 ]

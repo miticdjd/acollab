@@ -28,6 +28,16 @@ class SprintRepository
     }
 
     /**
+     * Count all sprints
+     *
+     * @return integer
+     */
+    public function countAll(): int
+    {
+        return Sprint::count();
+    }
+
+    /**
      * Create new sprint
      * @param array $fields
      * @return Sprint
