@@ -27,7 +27,9 @@ class IssueFactory extends Factory
     {
         $projectIds = Project::all()->pluck('id')->toArray();
         $issueTypeIds = IssueType::all()->pluck('id')->toArray();
-        $developerIds = User::role('Developer')->get()->pluck('id')->toArray();
+        $developerIds = User::whereHas('roles', static function ($query) {
+                            return $query->where('name', 'Developer');
+                        })->get()->pluck('id')->toArray();
 
         $names = [
             'Improve loading of page',
@@ -79,7 +81,7 @@ class IssueFactory extends Factory
         return [
             'project_id' => $this->faker->randomElement($projectIds),
             'issue_type_id' => $this->faker->randomElement($issueTypeIds),
-            'user_id' => $this->faker->randomElement(array_combine($developerIds, [null])), // we should not set this data
+            'user_id' => $this->faker->randomElement(array_merge($developerIds, [null])), // we should not set this data
             'name' => $this->faker->randomElement($names),
             'description' => $this->faker->paragraph($this->faker->randomElement([3, 5, 7, 9]), true),
             'status' => $this->faker->randomElement(Status::all())
