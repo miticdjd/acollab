@@ -1,17 +1,22 @@
 import axios from 'axios';
-import store from 'store';
 import { toast } from 'react-toastify';
 
 export const getUrl = () => process.env.NODE_ENV === 'production'
   ? process.env.REACT_APP_PROD_API_URL
   : process.env.REACT_APP_DEV_API_URL;
 
+function getAccessToken() {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; accessToken=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 const apiClient = axios.create({
   baseURL: getUrl(),
 });
 
 apiClient.interceptors.request.use(request => {
-  const accessToken = store.get('accessToken');
+  const accessToken = getAccessToken();
 
   if (accessToken) {
     request.headers.Authorization = `Bearer ${accessToken}`

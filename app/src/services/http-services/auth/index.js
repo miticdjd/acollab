@@ -1,5 +1,4 @@
 import apiClient from '../../axios'
-import store from 'store'
 
 export async function login(email, password) {
   return apiClient
@@ -12,7 +11,7 @@ export async function login(email, password) {
         const { token } = response.data.data;
 
         if (token) {
-          store.set('accessToken', token);
+          document.cookie = `accessToken=${token}; max-age=86400; path=/;`;
         }
         return response
       }
@@ -47,7 +46,7 @@ export async function logout() {
   return apiClient
     .get('/auth/logout')
     .then(() => {
-      store.remove('accessToken');
+      document.cookie = `accessToken=; max-age=-86400; path=/;`;
       return true
     })
     .catch(err => err && err)
