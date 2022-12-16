@@ -11,16 +11,12 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(request => {
-  const language = store.get('language');
   const accessToken = store.get('accessToken');
 
   if (accessToken) {
     request.headers.Authorization = `Bearer ${accessToken}`
   }
 
-  if (language) {
-    request.headers['OCP-Locale'] = language;
-  }
   request.headers.Accept = 'application/json';
 
   return request
