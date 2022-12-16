@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTranslation } from 'react-i18next';
 
 import { CRow, CCol } from "@coreui/react";
 import SearchInput from "../common/form/SearchInput";
@@ -13,7 +12,6 @@ import { returnDefaultMomentFormatForDB } from "../../services/helpers/date-help
 const ActivityFilters = ({
     onFiltersChange
 }) => {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { allUsers } = useSelector(state => state.users);
     const { eventTypes } = useSelector(state => state.activities);

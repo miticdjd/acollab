@@ -14,13 +14,11 @@ import {
   CRow
 } from '@coreui/react';
 import { RESET_PASSWORD } from '../../services/validation/form.validation';
-import { useTranslation } from 'react-i18next';
 import { resetPassword } from '../../redux/auth/authSlice';
 import Spinner from "../common/spinner/Spinner";
 
 const ResetPassword = () => {
   const { token } = useParams();
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const {isAuthenticated, loadingDetails} = useSelector((state) => state.auth);

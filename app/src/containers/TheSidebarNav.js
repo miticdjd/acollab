@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,14 +6,13 @@ import { hasOneOfRoles } from '../services/helpers/autorization';
 
 
 export const TheSidebarNav = ({ items }) => {
-  const { t } = useTranslation();
   const authUserRoles = useSelector(state => state.auth.roles);
   const location = useLocation()
   const navLink = (name, icon) => {
     return (
       <>
         {icon && icon}
-        {name && t(name)}
+        {name}
       </>
     )
   }

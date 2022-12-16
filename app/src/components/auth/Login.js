@@ -12,7 +12,6 @@ import {
     CContainer,
     CRow
 } from '@coreui/react';
-import { useTranslation } from 'react-i18next';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { LOGIN } from '../../services/validation/form.validation';
@@ -21,7 +20,6 @@ import InputTextGroup from "../common/form/InputTextGroup";
 import Spinner from "../common/spinner/Spinner";
 
 const Login = () => {  
-    const { t } = useTranslation(); 
     const dispatch = useDispatch();
     const { isAuthenticated, loadingDetails } = useSelector(state => state.auth);
     let navigate = useNavigate();

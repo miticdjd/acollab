@@ -2,7 +2,6 @@ import React from 'react';
 import {Form as ReactForm} from "react-bootstrap";
 import {ErrorMessage} from "formik";
 import {CCol, CRow, CFormLabel} from "@coreui/react";
-import {useTranslation} from "react-i18next";
 
 const DropdownSelect = ({
   options,
@@ -17,7 +16,6 @@ const DropdownSelect = ({
   placeholder = null,
   wide = false
 }) => {
-  const { t } = useTranslation();
   const firstColumnSize = wide ? 4 : 2;
   const secondColumnSize = wide ? 8 : 10;
 
@@ -36,7 +34,7 @@ const DropdownSelect = ({
             disabled={disabled}
             multiple={multiple}
         >
-          <option value={''}>{placeholder ? placeholder : t('label.please_select')}</option>
+          <option value={''}>{placeholder ? placeholder : 'Molimo Vas da izaberete'}</option>
           {options.map(({ id, name }) => (
             <option key={`${name}-${id}`} value={id}>{name}</option>
           ))}

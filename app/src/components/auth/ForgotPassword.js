@@ -13,14 +13,12 @@ import {
   CRow
 } from '@coreui/react';
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 
 import { FORGOT_PASSWORD } from '../../services/validation/form.validation';
 import { forgotPassword } from '../../redux/auth/authSlice';
 import Spinner from "../common/spinner/Spinner";
 
 const ForgotPassword = () => {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const handleSubmit = (values) => {
         dispatch(forgotPassword(values));

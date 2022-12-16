@@ -1,4 +1,8 @@
-import apiClient from '../../axios'
+import apiClient from '../../axios';
+
+export const getDomain = () => process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_PROD_DOMAIN
+  : process.env.REACT_APP_DEV_DOMAIN;
 
 export async function login(email, password) {
   return apiClient
@@ -11,7 +15,8 @@ export async function login(email, password) {
         const { token } = response.data.data;
 
         if (token) {
-          document.cookie = `accessToken=${token}; max-age=86400; path=/;`;
+          console.error('this', `accessToken=${token}; max-age=86400; domain=${getDomain()}; path=/;`);
+          document.cookie = `accessToken=${token}; max-age=86400; domain=${getDomain()}; path=/;`;
         }
         return response
       }

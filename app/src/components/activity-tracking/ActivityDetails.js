@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
     CButton,
     CCard,
@@ -21,7 +20,6 @@ import { fetchActivityDetails } from "../../redux/activity-tracking/activitiesSl
 const ActivityDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { roles } = useSelector(state => state.auth);
     const { activityDetails, loadingDetails } = useSelector(state => state.activities);
