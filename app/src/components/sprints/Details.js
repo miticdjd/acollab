@@ -51,7 +51,7 @@ const Details = () => {
         {
             title: "Dodeljen",
             key: "developer",
-            render: item => `${item.user?.first_name} ${item.user?.last_name}`
+            render: item => item.user ? `${item.user?.first_name} ${item.user?.last_name}` : ''
         },
         {
             title: "Status",
