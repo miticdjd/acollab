@@ -18,6 +18,7 @@ apiClient.interceptors.request.use(request => {
   }
 
   request.headers.Accept = 'application/json';
+  axios.defaults.withCredentials = true;
 
   return request
 });
