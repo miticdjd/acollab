@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Project\UserType;
+use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,6 +43,14 @@ class Project extends Model
         'developers'
     ];
 
+    /**
+     * Return new factory for a project
+     * @return string
+     */
+    protected static function newFactory()
+    {
+        return ProjectFactory::new();
+    }
 
     /**
      * Users that are managers on project

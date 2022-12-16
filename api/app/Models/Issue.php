@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\IssueFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -36,6 +37,15 @@ class Issue extends Model
         'project',
         'attachments'
     ];
+
+    /**
+     * Return new factory for a issue
+     * @return string
+     */
+    protected static function newFactory()
+    {
+        return IssueFactory::new();
+    }
 
     /**
      * The "booted" method of the model.
