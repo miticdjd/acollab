@@ -1,12 +1,11 @@
 {
     "name": "hefes/nites_midldeware",
     "type": "project",
-    "description": "Nites middleware API.",
+    "description": "Acollab API.",
     "version": "1.4.0",
     "keywords": [
-        "nites",
-        "middleware",
-        "proxy"
+        "acollab",
+        "api"
     ],
     "license": "Commercial",
     "require": {

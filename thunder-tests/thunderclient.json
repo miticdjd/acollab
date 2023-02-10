@@ -154,7 +154,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-05-17T17:10:33.364Z",
-    "modified": "2022-11-11T11:28:49.308Z",
+    "modified": "2023-02-05T13:03:04.218Z",
     "headers": [
       {
         "name": "Accept",
@@ -164,7 +164,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"first_name\": \"Draganche\",\n    \"last_name\": \"Mitich\",\n    \"email\": \"d.mitic@hefesgroup.com\"\n}",
+      "raw": "{\n    \"first_name\": \"Draganche\",\n    \"last_name\": \"Mitich\",\n    \"email\": \"d.mitic\"\n}",
       "form": []
     },
     "auth": {

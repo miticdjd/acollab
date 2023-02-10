@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['GET','POST','OPTIONS','PUT','DELETE','PATCH'],
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => ['http://localhost:3000', 'https://acollab.ols.rs'],
 
     'allowed_origins_patterns' => [],
 
