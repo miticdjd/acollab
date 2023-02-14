@@ -116,9 +116,9 @@ class ProjectRepository
      * Count all for manager
      *
      * @param integer $userId
-     * @return Collection
+     * @return int
      */
-    public function countAllForManager(int $userId): Collection
+    public function countAllForManager(int $userId): int
     {
         return Project::whereHas('managers', function(Builder $query) use ($userId) {
             $query->where('user_id', $userId);
