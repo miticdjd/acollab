@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useParams,useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
     CButton,
     CCard,
@@ -18,10 +19,14 @@ import { getIssueStatusBg } from "../../services/helpers/badge";
 import Table from "../common/table/Table";
 import ConfirmModal from "../common/modals/ConfirmModal";
 import IssueModal from "../common/modals/IssueModal";
+import { hasOneOfRoles } from "../../services/helpers/autorization";
+import { ROLE_ADMINISTRATOR, ROLE_MANAGER } from "../../constants/roles";
 
 const Details = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { roles } = useSelector(state => state.auth);
+    const canFinishSprint = hasOneOfRoles(roles, [ROLE_ADMINISTRATOR, ROLE_MANAGER]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showIssue, setShowIssue] = useState(false);
     const [displayIssue, setDisplayIssue] = useState(null);
@@ -162,7 +167,7 @@ const Details = () => {
 
                         {!loadingData && (
                             <CCardFooter className="bg-white">
-                                <CButton type="button" color="success" className="is-btn me-3" style={{ width: '150px' }} onClick={() => { setShowConfirmation(true) }} disabled={false}>{false ? <Spinner smallSize={true}/> :  '' }Završi sprint</CButton>
+                                {canFinishSprint && (<CButton type="button" color="success" className="is-btn me-3" style={{ width: '150px' }} onClick={() => { setShowConfirmation(true) }} disabled={false}>{false ? <Spinner smallSize={true}/> :  '' }Završi sprint</CButton>)}
                                 <CButton type="reset" color="danger" style={{ width: '150px' }} className="is-btn" onClick={handleCancel}>Vrati se nazad</CButton>
                             </CCardFooter>
                         )}
