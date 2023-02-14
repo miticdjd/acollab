@@ -33,4 +33,16 @@ class AddRequest extends FormRequest
             'developers.*' => 'exists:users,id'
         ];
     }
+
+    /**
+     * Validation messages
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'code.unique' => 'Kod projekta mora da bude unikatan.'
+        ];
+    }
 }
